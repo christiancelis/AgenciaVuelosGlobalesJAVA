@@ -199,30 +199,70 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (4, 44, "reserva"), -- Cancelar Reserva de Vuelo
 (4, 45, "reserva"); -- Modificar Reserva de Vuelo
 
--- viajes
-INSERT INTO Viaje (id, aeropuertoOrigen, aeropuertoDestino, fechaViaje, precio) VALUES
-(1, '1', '5', '2024-07-20', 200),
-(2, '3', '2', '2024-07-21', 250),
-(3, '2', '6', '2024-07-22', 180),
-(4, '2', '4', '2024-07-23', 300);
 
--- Inserciones en tabla Aeropuerto con nombres ajustados
-INSERT INTO Aeropuerto (nombre, Ciudad_id) VALUES
-    ('El Dorado International', 1),
-    ('José María Córdova International', 2),
-    ('Ministro Pistarini International', 3),
-    ('Guarulhos–Governador André Franco Montoro', 4),
-    ('Rafael Núñez International', 1),
-    ('Alfonso Bonilla Aragón International', 1),
-    ('Mariscal Sucre International', 1),
-    ('El Palomar', 2),
-    ('Carrasco International', 3),
-    ('Jorge Chávez International', 4),
-    ('El Alto International', 5),
-    ('Aeroparque Jorge Newbery', 2),
-    ('Silvio Pettirossi International', 5),
-    ('Gustavo Rojas Pinilla International', 5),
-    ('Viru Viru International', 5);
+ALTER TABLE Aeropuerto MODIFY COLUMN nombre VARCHAR(100);
+
+
+INSERT INTO Aeropuerto (id, nombre, Ciudad_id) VALUES
+    (1, 'El Dorado International', 1),
+    (2, 'José María Córdova International', 2),
+    (3, 'Simón Bolívar International Airport', 3),
+    (4, 'La Chinita International Airport', 4),
+    (5, 'Benito Juárez International Airport', 5),
+    (6, 'Don Miguel Hidalgo y Costilla International Airport', 6),
+    (7, 'Jorge Chávez International Airport', 7),
+    (8, 'Alejandro Velasco Astete International Airport', 8),
+    (9, 'Silvio Pettirossi International Airport', 9),
+    (10, 'Guaraní International Airport', 10),
+    (11, 'Carrasco International Airport', 11),
+    (12, 'Nueva Hespérides International Airport', 12),
+    (13, 'El Alto International Airport', 13),
+    (14, 'Viru Viru International Airport', 14),
+    (15, 'Juan Santamaría International Airport', 15),
+    (16, 'Limón International Airport', 16),
+    (17, 'Ministro Pistarini International Airport', 17),
+    (18, 'Ingeniero Aeronáutico Ambrosio L.V. Taravella International Airport', 18),
+    (19, 'Piarco International Airport', 19),
+    (20, 'San Fernando Airport', 20),
+    (21, 'Monsenor Oscar Arnulfo Romero International Airport', 21),
+    (22, 'Ilopango Airport', 22),
+    (23, 'Adolfo Suárez Madrid–Barajas Airport', 23),
+    (24, 'Barcelona-El Prat Airport', 24),
+    (25, 'John F. Kennedy International Airport', 25),
+    (26, 'Los Angeles International Airport', 26),
+    (27, 'Mariscal Sucre International Airport', 27),
+    (28, 'José Joaquín de Olmedo International Airport', 28),
+    (29, 'Luis Muñoz Marín International Airport', 29),
+    (30, 'Mercedita Airport', 30),
+    (31, 'Berlin Brandenburg Airport', 31),
+    (32, 'Munich Airport', 32),
+    (33, 'Amsterdam Airport Schiphol', 33),
+    (34, 'Rotterdam The Hague Airport', 34),
+    (35, 'Narita International Airport', 35),
+    (36, 'Kansai International Airport', 36);
+
+
+INSERT INTO Viaje (id, aeropuertoOrigen, aeropuertoDestino, fechaViaje, precio) VALUES
+(1, 1, 5, '2024-07-20', 200),
+(2, 3, 2, '2024-07-21', 250),
+(3, 2, 6, '2024-07-22', 180),
+(4, 2, 4, '2024-07-23', 300),
+(5, 7, 9, '2024-08-01', 350),
+(6, 11, 13, '2024-08-02', 400),
+(7, 15, 17, '2024-08-03', 450),
+(8, 19, 21, '2024-08-04', 500),
+(9, 23, 25, '2024-08-05', 550),
+(10, 27, 29, '2024-08-06', 600),
+(11, 31, 33, '2024-08-07', 650),
+(12, 35, 1, '2024-08-08', 700),
+(13, 4, 6, '2024-08-09', 220),
+(14, 8, 10, '2024-08-10', 240),
+(15, 12, 14, '2024-08-11', 260),
+(16, 16, 18, '2024-08-12', 280),
+(17, 20, 22, '2024-08-13', 300),
+(18, 24, 26, '2024-08-14', 320),
+(19, 28, 30, '2024-08-15', 340),
+(20, 32, 34, '2024-08-16', 360);
 
 
 SELECT rp.idRol, rp.idPermiso, p.nombre AS nombrePermiso, rp.validacion, u.id as idUsuario

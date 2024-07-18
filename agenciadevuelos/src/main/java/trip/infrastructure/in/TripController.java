@@ -12,7 +12,7 @@ public TripController(GetAllTrip getAllTrip) {
 }
 
 
-public void ListAllTrip(){
+public void ListAllTrip(int limit, int offset){
     ArrayList<Trip> listTrip = getAllTrip.execute();
     for (Trip trip : listTrip) {
         System.out.println("estos son los viajes: "+  trip);
