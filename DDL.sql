@@ -230,7 +230,9 @@ foreign key(idRol)references Rol(id),
 foreign key(idPermiso)references Permiso(id)
 );
 
-
+create view VistaPaisAero
+as select p.id as idPais,p.nombre as pais,c.id as idCiudad,c.nombre as ciudad from Pais as p
+join Ciudad as c on c.Pais_id = p.id;
 
 
 
