@@ -2,6 +2,7 @@ package com.agenciadevuelosglobales.Menu;
 
 import java.util.Scanner;
 
+import user.infrastructure.in.MenuUserCliente;
 import user.infrastructure.in.UserMenu;
 
 
@@ -28,11 +29,13 @@ public class MenuManager {
                         
                         break;
                     case 2:
-                        MenuCliente menuCliente = new MenuCliente();
+                        MenuUserCliente menuCliente = new MenuUserCliente();
                         // menuCliente.Start(rolId,idUsu);
                         System.out.println("\n==============================");
                         System.out.println("  Ingresando a la AGENCIA DE VUELOS...");
                         System.out.println("==============================\n");
+
+                        menuCliente.Start(4, 4);
                         break;
                     case 3:
                         System.out.println("\n==============================");

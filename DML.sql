@@ -199,6 +199,32 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (4, 44, "reserva"), -- Cancelar Reserva de Vuelo
 (4, 45, "reserva"); -- Modificar Reserva de Vuelo
 
+-- viajes
+INSERT INTO Viaje (id, aeropuertoOrigen, aeropuertoDestino, fechaViaje, precio) VALUES
+(1, '1', '5', '2024-07-20', 200),
+(2, '3', '2', '2024-07-21', 250),
+(3, '2', '6', '2024-07-22', 180),
+(4, '2', '4', '2024-07-23', 300);
+
+-- Inserciones en tabla Aeropuerto con nombres ajustados
+INSERT INTO Aeropuerto (nombre, Ciudad_id) VALUES
+    ('El Dorado International', 1),
+    ('José María Córdova International', 2),
+    ('Ministro Pistarini International', 3),
+    ('Guarulhos–Governador André Franco Montoro', 4),
+    ('Rafael Núñez International', 1),
+    ('Alfonso Bonilla Aragón International', 1),
+    ('Mariscal Sucre International', 1),
+    ('El Palomar', 2),
+    ('Carrasco International', 3),
+    ('Jorge Chávez International', 4),
+    ('El Alto International', 5),
+    ('Aeroparque Jorge Newbery', 2),
+    ('Silvio Pettirossi International', 5),
+    ('Gustavo Rojas Pinilla International', 5),
+    ('Viru Viru International', 5);
+
+
 SELECT rp.idRol, rp.idPermiso, p.nombre AS nombrePermiso, rp.validacion, u.id as idUsuario
                      FROM RolPermiso rp 
                      JOIN Permiso as p ON p.id = rp.idPermiso 

@@ -1,4 +1,4 @@
-package com.agenciadevuelosglobales.Menu;
+package user.infrastructure.in;
 
 import java.util.Scanner;
 
@@ -9,10 +9,7 @@ import user.application.GetAllPermisos.GetAllPermisos;
 import user.application.createUser.CreateUser;
 import user.application.findUser.FindUser;
 import user.application.updateUser.UpdateUser;
-import user.application.validation.ValidationUser;
 import user.domain.ServiceUser;
-import user.domain.RolPermisoUsuario.RolPermiso;
-import user.infrastructure.in.UserController;
 import user.infrastructure.out.UserRepository;
 
 public class MenuUsuario {
@@ -25,18 +22,21 @@ public void Start(){
         GetAllRol getAllRol = new GetAllRol(serviceRol);
        CreateUser createUser = new CreateUser(serviceUser); 
        UpdateUser updateUser = new UpdateUser(serviceUser);
-       RolPermiso rolPermiso = new RolPermiso();
-       GetAllPermisos getAllPermisos = new GetAllPermisos(serviceUser);
-       ValidationUser validationUser = new ValidationUser(serviceUser);
        FindUser findUser = new FindUser(serviceUser);
+       GetAllPermisos getAllPermisos = new GetAllPermisos(serviceUser);
        UserController userController = new UserController(createUser, getAllRol,findUser, updateUser,getAllPermisos);
     while (true) {
         
-        System.out.println("1. Crear usuario");
-        System.out.println("2. Actualizar usuario");
-        System.out.println("3. Eliminar usuario");
-        System.out.println("4. Buscar usuario");
-        System.out.println("5. Salir");
+        System.out.println("==============================");
+        System.out.println("    GESTIÓN DE USUARIOS");
+        System.out.println("==============================");
+        System.out.println("1. CREAR USUARIO");
+        System.out.println("2. ACTUALIZAR USUARIO");
+        System.out.println("3. ELIMINAR USUARIO");
+        System.out.println("4. BUSCAR USUARIO");
+        System.out.println("5. SALIR");
+        System.out.println("==============================");
+        
 
 
         int choice = utils.Validation.leerNumero("Digita el numero: ", scanner);
@@ -50,7 +50,7 @@ public void Start(){
                 userController.updateById();
                 break;
                 case 3:
-                
+                System.out.println("Aun en mantenimiento..");
                 break;
                 case 4:
                 userController.findUserById();

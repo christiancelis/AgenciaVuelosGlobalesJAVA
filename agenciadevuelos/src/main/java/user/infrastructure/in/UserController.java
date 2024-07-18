@@ -3,10 +3,7 @@ package user.infrastructure.in;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.agenciadevuelosglobales.Menu.MenuAdmin;
-import com.agenciadevuelosglobales.Menu.MenuPermisos;
-import com.agenciadevuelosglobales.Menu.MenuTecnico;
-import com.agenciadevuelosglobales.Menu.MenuVentas;
+import com.agenciadevuelosglobales.Menu.GenerarPermisos;
 
 import rol.application.GetAllRol;
 import rol.domain.Rol;
@@ -38,56 +35,54 @@ public class UserController {
     public void createUser() {
         try {
             User user = new User();
-            System.out.println("---------------------------");
-            System.out.println("\t Creación de usuario");
-            System.out.println("---------------------------");
-            int id = utils.Validation.leerNumero("Ingrese la cedula: ", scanner);
-
-            String usuario = utils.Validation.leerdato("Ingrese el usuario: ", scanner);
-
-            System.out.println("Ingresa la contraseña: ");
-            String contraseña = utils.Validation.leerdato("Ingrese la contraseña: ", scanner);
-
+            System.out.println("==============================");
+            System.out.println("     CREACIÓN DE USUARIO");
+            System.out.println("==============================");
+            int id = utils.Validation.leerNumero("INGRESE LA CÉDULA: ", scanner);
+        
+            String usuario = utils.Validation.leerdato("INGRESE EL USUARIO: ", scanner);
+        
+            System.out.println("INGRESE LA CONTRASEÑA: ");
+            String contraseña = utils.Validation.leerdato("INGRESE LA CONTRASEÑA: ", scanner);
+        
             ArrayList<Rol> listRol = getAllRol.execute();
-
+        
             String leftAlignFormat = "| %-3d | %-20s |%n";
             System.out.format("+-----+----------------------+%n");
-            System.out.format("| ID  | Nombre               |%n");
+            System.out.format("| ID  | NOMBRE               |%n");
             System.out.format("+-----+----------------------+%n");
             for (Rol rol : listRol) {
-                System.out.format(leftAlignFormat, rol.getId(), rol.getNombre());
+                System.out.format(leftAlignFormat, rol.getId(), rol.getNombre().toUpperCase());
             }
             System.out.format("+-----+----------------------+%n");
-
-            System.out.println("\nIngresa el rol: ");
-            int rol = utils.Validation.leerNumero("Dijite el id del rol", scanner);
-
+        
+            int rol = utils.Validation.leerNumero("DIGITE EL ID DEL ROL: ", scanner);
+        
             boolean usuarioExistente = verificarUsuarioExistente(usuario);
-
+        
             if (usuarioExistente) {
-                System.out.println("Error: El usuario ya existe en el sistema.");
+                System.out.println("ERROR: EL USUARIO YA EXISTE EN EL SISTEMA.");
             } else {
                 user.setId(id);
                 user.setUsuario(usuario);
                 user.setContraseña(contraseña);
                 user.setRolId(rol);
-
+        
                 createUser.execute(user);
-
-                // Imprimir la información del usuario creado en formato tabla
-                System.out.println("Usuario creado exitosamente:");
+        
+                System.out.println("USUARIO CREADO EXITOSAMENTE:");
                 String userTableFormat = "| %-15s | %-20s |%n";
                 System.out.format("+-----------------+----------------------+%n");
-                System.out.format("| Campo           | Valor                |%n");
+                System.out.format("| CAMPO           | VALOR                |%n");
                 System.out.format("+-----------------+----------------------+%n");
                 System.out.format(userTableFormat, "ID", user.getId());
-                System.out.format(userTableFormat, "Usuario", user.getUsuario());
-                System.out.format(userTableFormat, "Contraseña", user.getContraseña());
-                System.out.format(userTableFormat, "Rol ID", user.getRolId());
+                System.out.format(userTableFormat, "USUARIO", user.getUsuario().toUpperCase());
+                System.out.format(userTableFormat, "CONTRASEÑA", user.getContraseña());
+                System.out.format(userTableFormat, "ROL ID", user.getRolId());
                 System.out.format("+-----------------+----------------------+%n");
             }
         } catch (Exception e) {
-            System.err.println("Error al crear el usuario: " + e.getMessage());
+            System.err.println("ERROR AL CREAR EL USUARIO: " + e.getMessage());
         }
     }
     public void findUserById() {
@@ -112,7 +107,7 @@ public class UserController {
     public void updateById() {
         try {
             int id = utils.Validation.leerNumero("Ingrese la cedula a actualizar: ", scanner);
-            // scanner.nextInt();
+          
 
             User user = findUser.execute(id);
             System.out.println(findUser.execute(id));
@@ -191,7 +186,7 @@ public class UserController {
                 String contraseña = utils.Validation.leerdato("Ingrese la contraseña: ", scanner);
     
                 User user = findUser.execute(userId);
-                MenuPermisos menuPermisos = new MenuPermisos();
+                GenerarPermisos menuPermisos = new GenerarPermisos();
                 
                 if (user != null && user.getContraseña().equals(contraseña)) {
                     int rolid = user.getRolId();
@@ -204,26 +199,27 @@ public class UserController {
     
                     switch (rolid) {
                         case 1:
-                        MenuAdmin menuAdmin = new MenuAdmin();
+                        MenuUserAdmin menuAdmin = new MenuUserAdmin();
                             System.out.println("ROL: ADMINISTRADOR");
                         menuAdmin.Start(rolid,idUsu);
 
-                         
                             break;
                         case 2:
-                            MenuVentas menuVentas = new MenuVentas(); 
+                            MenuUserVentas menuVentas = new MenuUserVentas(); 
                             menuVentas.Start(rolid, idUsu);
                             System.out.println("ROL: AREA DE VENTAS");
                             
                             break;
                         case 3:
                             System.out.println("ROL: TECNICO");
-                            MenuTecnico menuTecnico = new MenuTecnico();
+                            MenuUserTecnico menuTecnico = new MenuUserTecnico();
                             menuTecnico.Start(rolid,idUsu);
                             break;
                         case 4:
                         
                             System.out.println("ROL: CLIENTE");
+                            MenuUserCliente menuUserCliente = new MenuUserCliente();
+                            menuUserCliente.Start(rolid, idUsu);
                             break;
                         default:
                             System.out.println("ROL: DESCONOCIDO");

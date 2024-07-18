@@ -5,13 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import javax.management.MBeanNotificationInfo;
-
 import config.DataBaseConfig;
 import planeManufacture.domain.Manufacture;
 import planeManufacture.domain.ServiceManufacture;
-import planeModel.domain.Model;
 
 public class ManufactureRepository implements ServiceManufacture{
 
