@@ -229,3 +229,5 @@ SELECT rp.idRol, rp.idPermiso, p.nombre AS nombrePermiso, rp.validacion, u.id as
                      FROM RolPermiso rp 
                      JOIN Permiso as p ON p.id = rp.idPermiso 
                      JOIN Usuario as u on u.rolId = rp.idRol;
+
+
