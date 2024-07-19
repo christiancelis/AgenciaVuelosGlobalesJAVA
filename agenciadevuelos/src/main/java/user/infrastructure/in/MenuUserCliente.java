@@ -8,7 +8,6 @@ import com.agenciadevuelosglobales.Menu.GenerarPermisos;
 import trip.application.GetAllTrip;
 import trip.domain.ServiceTrip;
 import trip.domain.Trip;
-import trip.infrastructure.in.TripController;
 import trip.infrastructure.out.TripRepository;
 
 public class MenuUserCliente {
@@ -55,8 +54,8 @@ public class MenuUserCliente {
         ServiceTrip serviceTrip = new TripRepository();
         GetAllTrip getAllTripService = new GetAllTrip(serviceTrip);
         
-        int limit = 5; // Número de elementos por página
-        int offset = 0; // Desplazamiento inicial
+        int limit = 5; 
+        int offset = 0; 
 
         while (true) {
             ArrayList<Trip> listTrip = ((TripRepository) serviceTrip).getAllTrip(limit, offset);
