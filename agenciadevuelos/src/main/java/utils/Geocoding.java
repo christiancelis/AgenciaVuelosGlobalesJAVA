@@ -33,8 +33,14 @@ public class Geocoding {
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     double lat = jsonObject.getDouble("lat");
                     double lon = jsonObject.getDouble("lon");
-                    String cityName = jsonObject.getJSONObject("address").optString("city", "Unknown city");
-                    String countryName = jsonObject.getJSONObject("address").optString("country", "Unknown country");
+                    JSONObject address = jsonObject.getJSONObject("address");
+
+                    String cityName = address.optString("city", 
+                                address.optString("town", 
+                                address.optString("village", 
+                                address.optString("county", "Unknown city"))));
+                    String countryName = address.optString("country", "Unknown country");
+
                     return new LocationDetails(lat, lon, cityName, countryName);
                 } else {
                     throw new Exception("No results found for the city: " + city);
