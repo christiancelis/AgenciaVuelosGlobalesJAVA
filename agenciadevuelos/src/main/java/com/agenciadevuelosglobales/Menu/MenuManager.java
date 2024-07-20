@@ -4,10 +4,13 @@ import java.util.Scanner;
 
 import user.infrastructure.in.MenuUserCliente;
 import user.infrastructure.in.UserMenu;
-
+import viaje.domain.ServiceFlightRepository;
+import viaje.infrastructure.in.ViajeController;
 
 public class MenuManager {
     private final Scanner scanner = new Scanner(System.in);
+    
+   
 
     public void startMainMenu() {
         try {
@@ -23,18 +26,14 @@ public class MenuManager {
 
                 switch (choice) {
                     case 1:
-                         UserMenu userMenu = new UserMenu();
-                         userMenu.MenuUser();
-
-                        
+                        UserMenu userMenu = new UserMenu();
+                        userMenu.MenuUser();
                         break;
                     case 2:
                         MenuUserCliente menuCliente = new MenuUserCliente();
-                        // menuCliente.Start(rolId,idUsu);
                         System.out.println("\n==============================");
                         System.out.println("  Ingresando a la AGENCIA DE VUELOS...");
                         System.out.println("==============================\n");
-
                         menuCliente.Start(4, 4);
                         break;
                     case 3:
@@ -50,11 +49,13 @@ public class MenuManager {
                         break;
                 }
             }
-
         } catch (Exception e) {
             System.err.println("Error en el menú principal: " + e.getMessage());
             e.printStackTrace();
         }
     }
-
+    // public void showMenu() {
+    //     ViajeController viajeController = new ViajeController(flightRepository);
+    //     viajeController.start();
+    // }
 }

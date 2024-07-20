@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import trip.domain.ServiceTrip;
 import user.application.GetAllPermisos.GetAllPermisos;
 import user.domain.ServiceUser;
 import user.domain.RolPermisoUsuario.RolPermiso;
@@ -14,12 +15,20 @@ import user.infrastructure.in.MenuUserCliente;
 import user.infrastructure.in.MenuUserTecnico;
 import user.infrastructure.in.MenuUserVentas;
 import user.infrastructure.out.UserRepository;
+import viaje.application.FlightService;
+import viaje.domain.ServiceFlightRepository;
+import viaje.infrastructure.in.ViajeController;
+import viaje.infrastructure.out.FlightRepositoryImpl;
 
 public class GenerarPermisos {
 
     private final ServiceUser serviceUser;
     private final GetAllPermisos getAllPermisos;
-
+     private ServiceTrip serviceTrip;
+    ServiceFlightRepository serviceFlightRepository = new FlightRepositoryImpl();
+    FlightService flightService = new FlightService(serviceFlightRepository);
+    FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
+    ViajeController viajeController = new ViajeController(flightRepository);
     public GenerarPermisos() {
         this.serviceUser = new UserRepository();
         this.getAllPermisos = new GetAllPermisos(serviceUser);
@@ -73,8 +82,10 @@ public class GenerarPermisos {
       
         switch (validacion) {
             case "avion":
-                System.out.println("ESTAMOS ENTRANDO A MENU DE AVIONES\n");
+                 System.out.println("ESTAMOS ENTRANDO A MENU DE AVIONES\n");
                 menuFinal.menuAdminAviones();
+                // MenuManager menuManager = new MenuManager(serviceFlightRepository);
+                // menuManager.showMenu();
                 break;
             case "tripulacion":
                 System.out.println("ESTAMOS ENTRANDO A MENU DE TRIPULACION\n");
@@ -84,6 +95,7 @@ public class GenerarPermisos {
             case "viaje":
                 System.out.println("ESTAMOS ENTRANDO A MENU DE TRAYECTOS\n");
                 menuFinal.menuAdminTrayectos();
+               
                 break;
             case "aeropuerto":
                 System.out.println("ESTAMOS ENTRANDO A MENU DE AEROPUERTO\n");

@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public class AirportDatabase {
-    private static final String FILE_PATH = "agenciadevuelos/src/main/java/airports.csv"; // Ruta al archivo CSV
+    private static final String FILE_PATH = "agenciadevuelos/src/main/java/airports.csv"; 
     private Map<String, List<Airport>> cityToAirportMap = new HashMap<>();
+    private List<Airport> allAirports = new ArrayList<>(); 
 
     public AirportDatabase() throws IOException {
         loadDatabase();
@@ -19,55 +20,81 @@ public class AirportDatabase {
     private void loadDatabase() throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
-            String header = br.readLine(); // Leer el encabezado
-            System.out.println("Encabezado CSV: " + header); // Depuración
-
+           
+    
             while ((line = br.readLine()) != null) {
                 String[] columns = line.split(",", -1); // El parámetro -1 incluye las columnas vacías
-
+    
                 // Verificar si la línea tiene suficientes columnas
                 if (columns.length >= 16) {
                     try {
                         String city = columns[10].trim().toLowerCase(); // La columna 'municipality'
-                        String iataCode = columns[12].trim(); // La columna 'iata_code'
+                        String iataCode = columns[1].trim(); // La columna 'iata_code'
                         double latitude = Double.parseDouble(columns[4].trim());
                         double longitude = Double.parseDouble(columns[5].trim());
                         String type = columns[2].trim().toLowerCase(); // La columna 'type'
-
-                        // Solo añadir si 'type' contiene "airport" y el IATA code no está vacío
-                        if (type.contains("airport") && !iataCode.isEmpty()) {
-                            city = city.replaceAll("[^a-zA-Z0-9 ]", "").trim();
-                            iataCode = iataCode.replaceAll("[^a-zA-Z0-9]", "").trim();
-
-                            // Crear el objeto Airport
-                            Airport airport = new Airport(
-                                    columns[1], // ident
-                                    columns[2], // type
-                                    columns[3], // name
-                                    latitude, // latitude_deg
-                                    longitude, // longitude_deg
-                                    iataCode // iata_code
-                            );
-
-                            cityToAirportMap
-                                    .computeIfAbsent(city, k -> new ArrayList<>())
-                                    .add(airport);
+    
+                        // Depuración: imprimir los valores leídos
+                        // System.out.println("Ciudad: " + city + ", IATA: " + iataCode + ", Latitude: " + latitude + ", Longitude: " + longitude + ", Type: " + type);
+    
+                        // Verificar si la ciudad está vacía o el tipo no es adecuado
+                        if (city.isEmpty() || iataCode.isEmpty() || !(type.contains("large") || type.contains("medium"))) {
+                            // System.out.println("Registro ignorado - Ciudad vacía o tipo no válido: " + line);
+                            continue; // Saltar este registro
                         }
+    
+                        // Limpiar y procesar la ciudad
+                        city = city.replaceAll("[^a-zA-Z0-9 ]", "").trim();
+                        iataCode = iataCode.replaceAll("[^a-zA-Z0-9]", "").trim();
+    
+                        // Crear el objeto Airport
+                        Airport airport = new Airport(
+                                columns[1], // ident
+                                columns[2], // type
+                                columns[3], // name
+                                latitude, // latitude_deg
+                                longitude, // longitude_deg
+                                iataCode // iata_code
+                        );
+    
+                        // Añadir el aeropuerto al mapa
+                        cityToAirportMap
+                                .computeIfAbsent(city, k -> new ArrayList<>())
+                                .add(airport);
+                                
+                        // Añadir a la lista global de aeropuertos
+                        allAirports.add(airport);
                     } catch (NumberFormatException e) {
-                        System.out.println("Error al convertir datos numéricos en la línea: " + line);
+                        System.out.println(e);
                     }
                 } else {
-                    System.out.println("Línea malformada en el archivo CSV: " + line);
+                    System.out.println("Línea malformada en el archivo CSV: ");
                 }
             }
         }
+    
+        // Depuración adicional para verificar los datos cargados
+        // System.out.println("Datos cargados en cityToAirportMap:");
+        // for (Map.Entry<String, List<Airport>> entry : cityToAirportMap.entrySet()) {
+        //     System.out.println("Ciudad: " + entry.getKey());
+        //     for (Airport airport : entry.getValue()) {
+        //         System.out.println("    Aeropuerto: " + airport.getName() + ", IATA: " + airport.getIataCode());
+        //     }
+        // }
     }
-
-    public List<Airport> getAirports(String city) {
-        city = city.trim().toLowerCase();
-        List<Airport> airports = cityToAirportMap.getOrDefault(city, new ArrayList<>());
-        System.out.println("Aeropuertos para la ciudad '" + city + "': " + airports); // Depuración
-        return airports;
+    
+    public List<Airport> getAirportsByCoordinates(double latitude, double longitude, double tolerance) {
+        List<Airport> nearbyAirports = new ArrayList<>();
+        for (Airport airport : allAirports) {
+            double distance = DistanceCalculator.calculateDistance(
+                    latitude, longitude,
+                    airport.getLatitude(), airport.getLongitude()
+            );
+            if (distance <= tolerance) { // Tolerance in km (e.g., 50 km)
+                nearbyAirports.add(airport);
+            }
+        }
+        return nearbyAirports;
     }
 
     // Clase interna para representar un aeropuerto
@@ -115,12 +142,9 @@ public class AirportDatabase {
         @Override
         public String toString() {
             return "Airport{" +
-                    "ident='" + ident + '\'' +
-                    ", type='" + type + '\'' +
+                   
+                   
                     ", name='" + name + '\'' +
-                    ", latitude=" + latitude +
-                    ", longitude=" + longitude +
-                    ", iataCode='" + iataCode + '\'' +
                     '}';
         }
     }

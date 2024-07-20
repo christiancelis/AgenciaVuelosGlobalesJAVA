@@ -4,100 +4,76 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Validation {
     
- public static String leerdato(String msg, Scanner es) {
-        String dato;
+    public static String leerdato(String msg, Scanner sc) {
         while (true) {
-            dato = "";
+            System.out.print(msg);
             try {
-                System.out.print(msg);
-                dato = es.nextLine();
+                String dato = sc.nextLine();
+                if (!dato.isEmpty()) {
+                    return dato;
+                } else {
+                    System.out.println("El campo no puede ser vacío.");
+                }
             } catch (Exception e) {
-                System.out.println(e);
-            }
-            if (!dato.isEmpty()) {
-                return dato;
-            } else {
-                System.out.println("El campo no puede ser vacío\n");
-                continue;
+                System.out.println("Error en la entrada: " + e.getMessage());
+                sc.next(); // Limpia el buffer del scanner en caso de error
             }
         }
     }
 
-    public static int leerNumero(String msg, Scanner es) {
-        String dato;
+    public static int leerNumero(String msg, Scanner sc) {
         while (true) {
-            dato = "";
+            System.out.print(msg);
             try {
-                System.out.print(msg);
-                dato = es.nextLine();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
-            if (!IsInteger(dato)) {
-                System.out.println("El campo no puede ser texto");
-                continue;
-            }
-            if (!dato.isEmpty()) {
-                return Integer.parseInt(dato);
-            } else {
-                System.out.println("El campo no puede ser vacío o ser menor o igual a cero\n");
-                continue;
+                String dato = sc.nextLine();
+                if (IsInteger(dato)) {
+                    return Integer.parseInt(dato);
+                } else {
+                    System.out.println("El campo debe ser un número entero.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Formato de número no válido. Intente de nuevo.");
             }
         }
     }
 
     public static boolean IsInteger(String text) {
         try {
-            int v = Integer.parseInt(text);
+            Integer.parseInt(text);
             return true;
         } catch (NumberFormatException ex) {
             return false;
         }
     }
 
-
-    public static Date LeerFecha(String msg, Scanner sc){
-        Date fecha = null;
+    public static Date LeerFecha(String msg, Scanner sc) {
         while (true) {
-            String fechaStr = Validation.leerdato(msg, sc);
-            String[] fechaC = fechaStr.split("-");
-            if(fechaC.length!=3){
-                System.out.println("Formato no valido");
-                continue;
+            String fechaStr = leerdato(msg, sc);
+            try {
+                Date fecha = Date.valueOf(fechaStr);
+                return fecha;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Formato de fecha no válido. Intente de nuevo.");
             }
-            if(fechaC[0].length()==4 && fechaC[1].length()==2 && fechaC[2].length()==2 && IsInteger(String.valueOf(fechaC[0]))==true && IsInteger(String.valueOf(fechaC[1]))==true && IsInteger(String.valueOf(fechaC[2]))==true ){
-                try {
-                    fecha =java.sql.Date.valueOf(fechaStr);
-                    return fecha;
-                } catch (Exception e) {
-                    System.out.println("Formato de fecha no válido. Intente de nuevo.");
-                }
-            }else{
-                System.out.println("Formato no valido");
-                continue;
-            }
-            fecha = null; 
         }
     }
 
-    public static Time leerHora(String msg, Scanner sc){
+    public static Time leerHora(String msg, Scanner sc) {
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-        Time hora = null;
+        timeFormatter.setLenient(false); // Para evitar fechas y horas incorrectas
         while (true) {
-            String horaStr = Validation.leerdato(msg, sc);
+            String horaStr = leerdato(msg, sc);
             try {
-                hora = new Time(timeFormatter.parse(horaStr).getTime());
-                return hora;
+                java.util.Date parsedDate = timeFormatter.parse(horaStr);
+                return new Time(parsedDate.getTime());
             } catch (ParseException e) {
                 System.out.println("Formato de hora no válido. Intente de nuevo.");
             }
-            hora = null;
         }
     }
-
 }

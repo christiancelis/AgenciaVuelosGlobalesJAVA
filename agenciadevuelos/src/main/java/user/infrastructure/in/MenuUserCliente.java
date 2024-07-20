@@ -4,16 +4,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.agenciadevuelosglobales.Menu.GenerarPermisos;
+import com.agenciadevuelosglobales.Menu.MenuManager;
 
 import trip.application.GetAllTrip;
 import trip.domain.ServiceTrip;
 import trip.domain.Trip;
 import trip.infrastructure.out.TripRepository;
+import viaje.application.FlightService;
+import viaje.domain.ServiceFlightRepository;
+import viaje.infrastructure.in.ViajeController;
+import viaje.infrastructure.out.FlightRepositoryImpl;
 
 public class MenuUserCliente {
     Scanner scanner = new Scanner(System.in);
     GenerarPermisos menuPermisos = new GenerarPermisos();
     private ServiceTrip serviceTrip;
+    ServiceFlightRepository serviceFlightRepository = new FlightRepositoryImpl();
+    FlightService flightService = new FlightService(serviceFlightRepository);
+    FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
+    ViajeController viajeController = new ViajeController(flightRepository);
+
 
     public void Start(int rolId, int idUsu) {
         while (true) {

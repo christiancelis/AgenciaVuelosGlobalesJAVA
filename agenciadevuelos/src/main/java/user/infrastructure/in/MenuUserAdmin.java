@@ -1,8 +1,10 @@
 package user.infrastructure.in;
 
+import java.sql.Connection;
 import java.util.Scanner;
 import com.agenciadevuelosglobales.Menu.GenerarPermisos;
 
+import config.DataBaseConfig;
 import plane.application.CreatePlane;
 import plane.application.DeletePlaneByPlate;
 import plane.application.GetAllPlanes;
@@ -19,6 +21,12 @@ import planeStatus.application.GetAllStatus;
 import planeStatus.application.GetStatusById;
 import planeStatus.domain.ServiceStatus;
 import planeStatus.infrastructure.out.StatusRepository;
+import utils.AirportDatabase;
+import viaje.application.FlightService;
+import viaje.domain.FlightRecord;
+import viaje.domain.ServiceFlightRepository;
+import viaje.infrastructure.in.ViajeController;
+import viaje.infrastructure.out.FlightRepositoryImpl;
 
 public class MenuUserAdmin {
     private Scanner scanner = new Scanner(System.in);
@@ -35,7 +43,6 @@ public class MenuUserAdmin {
     GetPlaneByPlate getPlaneByPlate = new GetPlaneByPlate(servicePlane);
     GetModelById getModelById = new GetModelById(serviceModel);
     GetStatusById getStatusById = new GetStatusById(sServiceStatus);
-
     PlaneController planeController = new PlaneController(deletePlaneByPlate, getAllPlanes,
         updatePlaneByPlate, getAllStatus, createPlane, getAllModels, getPlaneByPlate, getModelById, getStatusById);
 
@@ -175,6 +182,7 @@ public class MenuUserAdmin {
                     break;
                 case 2:
                     System.out.println("Asignando Aeronave a Trayecto...");
+                   
                     break;
                 case 3:
                     System.out.println("Actualizando Información de Trayecto...");

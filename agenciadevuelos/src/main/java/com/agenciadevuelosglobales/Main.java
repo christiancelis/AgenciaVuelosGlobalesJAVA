@@ -1,81 +1,37 @@
 package com.agenciadevuelosglobales;
+
 import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
+import java.sql.SQLException;
+
+import com.agenciadevuelosglobales.Menu.MenuManager;
 
 import utils.AirportDatabase;
-import utils.DistanceCalculator;
-import utils.Geocoding;
+import viaje.infrastructure.in.ViajeController;
+import viaje.infrastructure.out.FlightRepositoryImpl;
 
 public class Main {
-    private static final double COST_PER_KM = 0.1; // Costo por kilómetro
-
     public static void main(String[] args) {
-        // MenuManager menuManager = new MenuManager();
+        try{
+        //    MenuManager menuManager = new MenuManager(null);
         // menuManager.startMainMenu();
-        
-       Scanner scanner = new Scanner(System.in);
-        AirportDatabase airportDatabase;
+            // Inicializa AirportDatabase
+            AirportDatabase airportDatabase = new AirportDatabase();
 
-        try {
-            airportDatabase = new AirportDatabase();
-        } catch (IOException e) {
-            System.out.println("Error al cargar la base de datos de aeropuertos: " + e.getMessage());
-            return;
-        }
+            // // Obtén una conexión a la base de datos usando DataBaseConfig
+            // Connection connection = DataBaseConfig.getConnection();
 
-        System.out.print("Ingrese la ciudad de origen: ");
-        String origin = scanner.nextLine();
+            // // Inicializa FlightRepositoryImpl con la conexión
+            FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
 
-        System.out.print("Ingrese la ciudad de destino: ");
-        String destination = scanner.nextLine();
+            // // Inicializa ViajeController con AirportDatabase y FlightRepositoryImpl
+             ViajeController viajeController = new ViajeController(flightRepository);
 
-        try {
-            // Obtener detalles de la ubicación
-            Geocoding.LocationDetails originDetails = Geocoding.getLocationDetails(origin);
-            Geocoding.LocationDetails destinationDetails = Geocoding.getLocationDetails(destination);
-
-            // Validar ciudad y país
-            System.out.println("Ciudad de origen: " + originDetails.getCity() + ", País: " + originDetails.getCountry());
-            System.out.println("Ciudad de destino: " + destinationDetails.getCity() + ", País: " + destinationDetails.getCountry());
-
-            // Buscar aeropuertos
-            List<AirportDatabase.Airport> originAirports = airportDatabase.getAirports(originDetails.getCity());
-            List<AirportDatabase.Airport> destinationAirports = airportDatabase.getAirports(destinationDetails.getCity());
-
-            if (originAirports.isEmpty()) {
-                System.out.println("No se encontraron aeropuertos en la ciudad de origen.");
-            } else {
-                System.out.println("Aeropuertos en la ciudad de origen:");
-                for (int i = 0; i < originAirports.size(); i++) {
-                    System.out.println((i + 1) + ". " + originAirports.get(i).getName() + " (" + originAirports.get(i).getIataCode() + ")");
-                }
-            }
-
-            if (destinationAirports.isEmpty()) {
-                System.out.println("No se encontraron aeropuertos en la ciudad de destino.");
-            } else {
-                System.out.println("Aeropuertos en la ciudad de destino:");
-                for (int i = 0; i < destinationAirports.size(); i++) {
-                    System.out.println((i + 1) + ". " + destinationAirports.get(i).getName() + " (" + destinationAirports.get(i).getIataCode() + ")");
-                }
-            }
-
-            // Calcular distancia
-            double distance = DistanceCalculator.calculateDistance(
-                    originDetails.getLat(), originDetails.getLon(),
-                    destinationDetails.getLat(), destinationDetails.getLon()
-            );
-
-            // Calcular precio
-            double price = distance * COST_PER_KM;
-
-            System.out.println("La distancia entre " + originDetails.getCity() + " y " + destinationDetails.getCity() + " es de " + distance + " km.");
-            System.out.println("El precio calculado es: $" + price);
-        } catch (Exception e) {
-            System.out.println("Error al calcular la distancia: " + e.getMessage());
-        }
-    }
-
-    }
+            // // Inicia el controlador
+           viajeController.start();
+        } catch ( IOException e) {
+             System.out.println("Error al iniciar la aplicación: " + e.getMessage());
+         }
     
+
+}
+}
