@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -114,8 +113,14 @@ public class ViajeController {
                 // Crear el registro del vuelo
                 String originCity = originDetails.getCity();
                 String destinationCity = destinationDetails.getCity();
-                FlightRecord flightRecord = new FlightRecord(selectedOriginAirport, selectedDestinationAirport,
-                        priceInCOP, travelDate, originCity, destinationCity, travelTime);
+                FlightRecord flightRecord = new FlightRecord(selectedOriginAirport.getName(),selectedDestinationAirport.getName(),originDetails.getCity(),
+    destinationDetails.getCity(),
+    priceInCOP,
+    travelDate,
+    travelTime
+);
+
+
                 flightRecords.add(flightRecord);
 
                 // Guardar el registro del vuelo en la base de datos

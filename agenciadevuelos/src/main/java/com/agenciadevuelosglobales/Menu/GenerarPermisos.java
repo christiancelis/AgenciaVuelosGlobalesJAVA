@@ -15,7 +15,7 @@ import user.infrastructure.in.MenuUserCliente;
 import user.infrastructure.in.MenuUserTecnico;
 import user.infrastructure.in.MenuUserVentas;
 import user.infrastructure.out.UserRepository;
-import viaje.application.FlightService;
+import viaje.application.GuardarVuelo;
 import viaje.domain.ServiceFlightRepository;
 import viaje.infrastructure.in.ViajeController;
 import viaje.infrastructure.out.FlightRepositoryImpl;
@@ -26,7 +26,7 @@ public class GenerarPermisos {
     private final GetAllPermisos getAllPermisos;
      private ServiceTrip serviceTrip;
     ServiceFlightRepository serviceFlightRepository = new FlightRepositoryImpl();
-    FlightService flightService = new FlightService(serviceFlightRepository);
+    GuardarVuelo flightService = new GuardarVuelo(serviceFlightRepository);
     FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
     ViajeController viajeController = new ViajeController(flightRepository);
     public GenerarPermisos() {

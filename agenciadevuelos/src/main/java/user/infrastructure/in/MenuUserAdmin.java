@@ -22,7 +22,7 @@ import planeStatus.application.GetStatusById;
 import planeStatus.domain.ServiceStatus;
 import planeStatus.infrastructure.out.StatusRepository;
 import utils.AirportDatabase;
-import viaje.application.FlightService;
+import viaje.application.GuardarVuelo;
 import viaje.domain.FlightRecord;
 import viaje.domain.ServiceFlightRepository;
 import viaje.infrastructure.in.ViajeController;
