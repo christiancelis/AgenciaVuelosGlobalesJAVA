@@ -20,15 +20,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Scanner;
-
-import com.agenciadevuelosglobales.Menu.GenerarPermisos;
-
 import plane.application.GetAllPlanes;
 import plane.domain.Plane;
 import plane.domain.ServicePlane;
 import plane.infrastructure.out.PlaneRepository;
-import user.domain.RolPermisoUsuario.RolPermiso;
-import user.infrastructure.in.MenuUserAdmin;
+
 
 public class ViajeController {
     Scanner scanner = new Scanner(System.in);
@@ -168,13 +164,13 @@ public class ViajeController {
                             idAvion);
 
                     flightRecords.add(flightRecord);
-                    GenerarPermisos generarPermisos = new GenerarPermisos();
+                    // GenerarPermisos generarPermisos = new GenerarPermisos();
                     // Guardar el registro del vuelo en la base de datos
                     try {
                         flightRepository.GuardarViaje(flightRecord);
                         printInfoMessage("Registro de vuelo guardado con éxito: " + flightRecord);
 
-                        generarPermisos.getAllPermiso("vuelo", 1, 1005323441);
+                        // generarPermisos.getAllPermiso("vuelo", 1, 1005323441);
                     } catch (SQLException e) {
                         printErrorMessage("Error al guardar el registro del vuelo en la base de datos: " + e.getMessage());
                     }
@@ -191,7 +187,7 @@ public class ViajeController {
             }
         }
     } finally {
-        System.out.println("sapo perro"); // Asegúrate de cerrar el Scanner al final
+        System.out.println("XD"); // Asegúrate de cerrar el Scanner al final
     }
 }
 
@@ -240,15 +236,15 @@ public class ViajeController {
         }
     }
 
-    private static void printErrorMessage(String message) {
+    public static void printErrorMessage(String message) {
         System.out.println("[ERROR] " + message);
     }
 
-    private static void printInfoMessage(String message) {
+    public static void printInfoMessage(String message) {
         System.out.println("[INFO] " + message);
     }
 
-    private static void printHeader(String title) {
+    public static void printHeader(String title) {
         System.out.println("\n==========================================");
         System.out.println("          " + title + "          ");
         System.out.println("==========================================");

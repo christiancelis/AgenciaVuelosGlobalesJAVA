@@ -1,4 +1,4 @@
-package viaje.infrastructure.out;
+package config;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

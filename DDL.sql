@@ -244,14 +244,13 @@ CREATE TABLE Viaje (
     precio DECIMAL(10, 2) NOT NULL,
     fechaViaje DATE,
     hora TIME
+    idAvion int,
+    foreign key(idAvion)references Avion(id)
 );
-CREATE TABLE Escala (
+CREATE TABLE Trayecto (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    originAirport VARCHAR(255),
     originCity VARCHAR(255),
-    destinationAirport VARCHAR(255),
     destinationCity VARCHAR(255),
-    idAvion INT,
     idViaje INT,
     FOREIGN KEY (idAvion) REFERENCES Avion(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (idViaje) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE

@@ -12,10 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Escala.domain.Escala;
-import Escala.domain.ServiceEscala;
 
-public class AirportDatabase implements ServiceAeropuerto,ServiceEscala {
+
+public class AirportDatabase implements ServiceAeropuerto {
     private static final String FILE_PATH = "agenciadevuelos/src/main/java/airports.csv";
     private Map<String, List<Viaje>> cityToAirportMap = new HashMap<>();
     private List<Viaje> allAirports = new ArrayList<>();
@@ -75,15 +74,5 @@ public class AirportDatabase implements ServiceAeropuerto,ServiceEscala {
         return nearbyAirports;
     }
 
-    @Override
-    public void guardarEscala(Escala layover) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'guardarEscala'");
-    }
-
-    @Override
-    public ArrayList<Escala> GetAllEscalas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'GetAllEscalas'");
-    }
+  
 }
