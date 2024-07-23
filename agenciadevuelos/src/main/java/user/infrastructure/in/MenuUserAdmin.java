@@ -24,7 +24,7 @@ import planeStatus.infrastructure.out.StatusRepository;
 import utils.AirportDatabase;
 import viaje.application.GuardarVuelo;
 import viaje.domain.FlightRecord;
-import viaje.domain.ServiceFlightRepository;
+import viaje.domain.ServiceFlight;
 import viaje.infrastructure.in.ViajeController;
 import viaje.infrastructure.out.FlightRepositoryImpl;
 
@@ -45,9 +45,9 @@ public class MenuUserAdmin {
     GetStatusById getStatusById = new GetStatusById(sServiceStatus);
     PlaneController planeController = new PlaneController(deletePlaneByPlate, getAllPlanes,
         updatePlaneByPlate, getAllStatus, createPlane, getAllModels, getPlaneByPlate, getModelById, getStatusById);
-
-    public void Start(int rolId, int idUsu) {
-
+    ServiceFlight serviceFlight = new FlightRepositoryImpl();
+    ViajeController viajeController = new ViajeController(serviceFlight);
+    public void Start(int rolId, int idUsu) throws Exception {
         while (true) {
             System.out.println("==============================");
             System.out.println("     MENÚ ADMINISTRADOR");
@@ -61,41 +61,34 @@ public class MenuUserAdmin {
             System.out.println("7. Gestionar usuarios y permisos");
             System.out.println("8. Salir");
             System.out.println("==============================");
-            
-
+    
             GenerarPermisos menuPermisos = new GenerarPermisos();
-
+            
             int choice = utils.Validation.leerNumero("Digite la opción: ", scanner);
-
+    
             switch (choice) {
                 case 1:
-                    String avion = "avion";
-                    menuPermisos.getAllPermiso(avion, rolId, idUsu);
+                    menuPermisos.getAllPermiso("avion", rolId, idUsu);
                     menuAdminAviones();
                     break;
                 case 2:
-                    String tripulacion = "tripulacion";
-                    menuPermisos.getAllPermiso(tripulacion, rolId, idUsu);
+                    menuPermisos.getAllPermiso("tripulacion", rolId, idUsu);
                     menuAdminTripulacion();
                     break;
                 case 3:
-                    String trayecto = "trayecto";
-                    menuPermisos.getAllPermiso(trayecto, rolId, idUsu);
+                    menuPermisos.getAllPermiso("viaje", rolId, idUsu);
                     menuAdminTrayectos();
                     break;
                 case 4:
-                    String aeropuerto = "aeropuerto";
-                    menuPermisos.getAllPermiso(aeropuerto, rolId, idUsu);
+                    menuPermisos.getAllPermiso("aeropuerto", rolId, idUsu);
                     menuAdminAeropuerto();
                     break;
                 case 5:
-                    String tarifa = "tarifa";
-                    menuPermisos.getAllPermiso(tarifa, rolId, idUsu);
+                    menuPermisos.getAllPermiso("tarifa", rolId, idUsu);
                     menuAdminTarifa();
                     break;
                 case 6:
-                    String documentacion = "documentacion";
-                    menuPermisos.getAllPermiso(documentacion, rolId, idUsu);
+                    menuPermisos.getAllPermiso("documentacion", rolId, idUsu);
                     menuAdminDocumentacion();
                     break;
                 case 7:
@@ -171,7 +164,8 @@ public class MenuUserAdmin {
         }
     }
 
-    public void menuAdminTrayectos() {
+    public void menuAdminTrayectos() throws Exception {
+        
         while (true) {
      
             int choice = utils.Validation.leerNumero("Digite la opción: ", scanner);
@@ -179,27 +173,50 @@ public class MenuUserAdmin {
             switch (choice) {
                 case 1:
                     System.out.println("Consultando Información de Trayecto...");
+                    viajeController.buscarVueloPorId();
                     break;
                 case 2:
                     System.out.println("Asignando Aeronave a Trayecto...");
-                   
+                    // Implementar lógica para asignar aeronave
                     break;
                 case 3:
                     System.out.println("Actualizando Información de Trayecto...");
+                    viajeController.UpdateVueloById();
                     break;
                 case 4:
-                    System.out.println("Eliminando Trayecto...");
+                    System.out.println("Eliminar Trayecto...");
+                    viajeController.EliminarVuelo();
                     break;
                 case 5:
                     System.out.println("Consultando Escalas de un Trayecto...");
+                    // Implementar lógica para consultar escalas
                     break;
                 case 6:
                     System.out.println("Actualizando Información de Escala...");
+                    // Implementar lógica para actualizar información de escala
                     break;
                 case 7:
                     System.out.println("Eliminando Escala...");
+                    // Implementar lógica para eliminar escala
                     break;
                 case 8:
+                    System.out.println("Registrando Vuelo...");
+                    // Implementar lógica para registrar vuelo
+                    viajeController.start();
+                    return;
+                case 9:
+                    System.out.println("Registrando Escala...");
+                    // Implementar lógica para registrar escala
+                    break;
+                case 10:
+                    System.out.println("Eliminando Vuelo...");
+                    // Implementar lógica para eliminar vuelo
+                    break;
+                case 11:
+                    System.out.println("Actualizando Información de Vuelo...");
+                    // Implementar lógica para actualizar información de vuelo
+                    break;
+                case 12:
                     System.out.println("Saliendo del menú de Trayectos.");
                     return;
                 default:

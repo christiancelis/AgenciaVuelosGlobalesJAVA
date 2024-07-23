@@ -113,7 +113,7 @@ INSERT INTO Permiso (id, nombre) VALUES
 (15, "Actualizar Información de Avión"),
 (16, "Eliminar Avión"),
 (17, "Asignar Aeronave a Trayecto"),
-(18, "Actualizar Información de Trayecto"),
+(18, "Actualizar Información de Escala"),
 (19, "Eliminar Trayecto"),
 (20, "Actualizar Información de Aeropuerto"),
 (21, "Eliminar Aeropuerto"),
@@ -140,7 +140,11 @@ INSERT INTO Permiso (id, nombre) VALUES
 (42, "Realizar Pago"),
 (43, "Consultar Reserva de Vuelo"),
 (44, "Cancelar Reserva de Vuelo"),
-(45, "Modificar Reserva de Vuelo");
+(45, "Modificar Reserva de Vuelo"),
+(46."Registrar Vuelo"),
+(47."Registrar Escala"),
+(48."Eliminar Vuelo"),
+(49."Actualizar informacion de vuelo"),
 
 -- Relacionando permisos para el rol ADMINISTRADOR
 INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
@@ -155,6 +159,7 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (1, 21, "aeropuerto"), -- Eliminar Aeropuerto
 (1, 2, "tripulacion"),  -- Asignar Tripulación a Trayecto
 (1, 26, "tripulacion"), -- Consultar Asignación de Tripulación
+(1,46,"viaje"), -- registrar vuelo
 (1, 9, "viaje"),  -- Consultar Información de Trayecto
 (1, 17, "viaje"), -- Asignar Aeronave a Trayecto
 (1, 18, "viaje"), -- Actualizar Información de Trayecto
@@ -162,6 +167,9 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (1, 27, "viaje"), -- Consultar Escalas de un Trayecto
 (1, 28, "viaje"), -- Actualizar Información de Escala
 (1, 29, "viaje"), -- Eliminar Escala
+(1,47,"viaje"),
+(1,48,"viaje"),
+(1,49,"viaje"),
 (1, 30, "tarifa"), -- Registrar Tarifa de Vuelo
 (1, 31, "tarifa"), -- Actualizar Información de Tarifa de Vuelo
 (1, 32, "tarifa"), -- Eliminar Tarifa de Vuelo

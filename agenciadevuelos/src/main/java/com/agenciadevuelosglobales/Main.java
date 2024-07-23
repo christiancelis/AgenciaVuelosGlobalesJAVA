@@ -10,28 +10,26 @@ import viaje.infrastructure.in.ViajeController;
 import viaje.infrastructure.out.FlightRepositoryImpl;
 
 public class Main {
-    public static void main(String[] args) {
-        try{
-        //    MenuManager menuManager = new MenuManager(null);
-        // menuManager.startMainMenu();
+    public static void main(String[] args) throws Exception {
+        
+            
+      
+           MenuManager menuManager = new MenuManager();
+        menuManager.startMainMenu();
             // Inicializa AirportDatabase
-            AirportDatabase airportDatabase = new AirportDatabase();
 
             // // Obtén una conexión a la base de datos usando DataBaseConfig
             // Connection connection = DataBaseConfig.getConnection();
 
-            // // Inicializa FlightRepositoryImpl con la conexión
-            FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
+            // // // Inicializa FlightRepositoryImpl con la conexión
+        //     FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
 
-            // // Inicializa ViajeController con AirportDatabase y FlightRepositoryImpl
-             ViajeController viajeController = new ViajeController(flightRepository);
+        //     // // // Inicializa ViajeController con AirportDatabase y FlightRepositoryImpl
+        //      ViajeController viajeController = new ViajeController(flightRepository);
 
-            // // Inicia el controlador
-           viajeController.start();
-        } catch ( IOException e) {
-             System.out.println("Error al iniciar la aplicación: " + e.getMessage());
-         }
+        //     // // Inicia el controlador
+        //    viajeController.start();
+        }
     
 
-}
 }

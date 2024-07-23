@@ -1,17 +1,19 @@
 package viaje.application;
 
-import viaje.domain.ServiceFlightRepository;
+import java.util.ArrayList;
+
+import viaje.domain.FlightRecord;
+import viaje.domain.ServiceFlight;
 
 public class ListVuelos {
-private final ServiceFlightRepository serviceFlightRepository;
+private final ServiceFlight serviceFlightRepository;
 
-public ListVuelos(ServiceFlightRepository serviceFlightRepository) {
+public ListVuelos(ServiceFlight serviceFlightRepository) {
     this.serviceFlightRepository = serviceFlightRepository;
 }
 
-public void execute() {
-    serviceFlightRepository.GetAllVuelos();
-    ;
+public ArrayList<FlightRecord> execute() {
+  return serviceFlightRepository.GetAllVuelos();
 }
 
 }

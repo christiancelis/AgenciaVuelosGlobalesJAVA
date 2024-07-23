@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 import user.infrastructure.in.MenuUserCliente;
 import user.infrastructure.in.UserMenu;
-import viaje.domain.ServiceFlightRepository;
-import viaje.infrastructure.in.ViajeController;
+
 
 public class MenuManager {
     private final Scanner scanner = new Scanner(System.in);

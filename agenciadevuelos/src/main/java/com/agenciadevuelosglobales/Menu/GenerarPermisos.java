@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import javax.swing.SwingUtilities;
+
+import com.agenciadevuelosglobales.Menu.PermisosTableFrame.PermisosTableFrame;
+
 import trip.domain.ServiceTrip;
 import user.application.GetAllPermisos.GetAllPermisos;
 import user.domain.ServiceUser;
@@ -16,7 +20,7 @@ import user.infrastructure.in.MenuUserTecnico;
 import user.infrastructure.in.MenuUserVentas;
 import user.infrastructure.out.UserRepository;
 import viaje.application.GuardarVuelo;
-import viaje.domain.ServiceFlightRepository;
+import viaje.domain.ServiceFlight;
 import viaje.infrastructure.in.ViajeController;
 import viaje.infrastructure.out.FlightRepositoryImpl;
 
@@ -24,11 +28,12 @@ public class GenerarPermisos {
 
     private final ServiceUser serviceUser;
     private final GetAllPermisos getAllPermisos;
-     private ServiceTrip serviceTrip;
-    ServiceFlightRepository serviceFlightRepository = new FlightRepositoryImpl();
+    private ServiceTrip serviceTrip;
+    ServiceFlight serviceFlightRepository = new FlightRepositoryImpl();
     GuardarVuelo flightService = new GuardarVuelo(serviceFlightRepository);
     FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
     ViajeController viajeController = new ViajeController(flightRepository);
+    
     public GenerarPermisos() {
         this.serviceUser = new UserRepository();
         this.getAllPermisos = new GetAllPermisos(serviceUser);
@@ -40,7 +45,7 @@ public class GenerarPermisos {
             permisos = getAllPermisos.execute(validacion, rolId, idUsuario);
             System.out.println("Permisos obtenidos correctamente:");
             System.out.println("==============================");
-            printPermisos(permisos, validacion, rolId, idUsuario);
+            showPermisosInTable(permisos, validacion, rolId, idUsuario);
         } catch (Exception e) {
             System.out.println("Error al obtener permisos: " + e.getMessage());
         }
@@ -51,25 +56,41 @@ public class GenerarPermisos {
         return permisos;
     }
     
-    private void printPermisos(ArrayList<RolPermiso> permisos, String validacion, int rolId, int idUsuario) {
-        int num = 1;
-       
-        System.out.println("      MENU "+ validacion.toUpperCase()+ "        ");
-        System.out.println("==============================");
-        for (RolPermiso rolPermiso : permisos) {
-            if (rolPermiso.getValidacion().contains(validacion) &&
-                    rolPermiso.getIdRol() == rolId &&
-                    rolPermiso.getIdUsuario() == idUsuario) {
-                System.out.println(num++ + ". " + rolPermiso.getNombrePermiso());
+    private void showPermisosInTable(ArrayList<RolPermiso> permisos, String validacion, int rolId, int idUsuario) {
+        SwingUtilities.invokeLater(() -> {
+            // Filtrar permisos según el usuario y rol
+            ArrayList<RolPermiso> userPermisos = new ArrayList<>();
+            for (RolPermiso permiso : permisos) {
+                if (permiso.getIdRol() == rolId && permiso.getIdUsuario() == idUsuario && permiso.getValidacion().contains(validacion)) {
+                    userPermisos.add(permiso);
+                }
             }
-        }
-        System.out.println("==============================");
+    
+            // Agregar permiso "Salir"
+            RolPermiso permisoSalir = new RolPermiso();
+            permisoSalir.setNombrePermiso("Salir");
+            permisoSalir.setValidacion(validacion);
+            permisoSalir.setIdRol(rolId);
+            permisoSalir.setIdUsuario(idUsuario);
+            userPermisos.add(permisoSalir);
+    
+            // Mostrar los permisos en el JTable
+            PermisosTableFrame frame = new PermisosTableFrame(userPermisos, rolId,idUsuario);
+            frame.setVisible(true);
+        });
     }
+    
 
     private Map<Integer, Consumer<String>> getRoleMenus() {
         Map<Integer, Consumer<String>> roleMenus = new HashMap<>();
 
-        roleMenus.put(1, this::adminMenu);
+        roleMenus.put(1, t -> {
+            try {
+                adminMenu(t);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         roleMenus.put(2, this::techMenu);
         roleMenus.put(3, this::ventasMenu);
         roleMenus.put(4, this::clienteMenu);
@@ -77,25 +98,21 @@ public class GenerarPermisos {
         return roleMenus;
     }
 
-    private void adminMenu(String validacion) {
+    private void adminMenu(String validacion) throws Exception {
         MenuUserAdmin menuFinal = new MenuUserAdmin();
       
         switch (validacion) {
             case "avion":
-                 System.out.println("ESTAMOS ENTRANDO A MENU DE AVIONES\n");
+                System.out.println("ESTAMOS ENTRANDO A MENU DE AVIONES\n");
                 menuFinal.menuAdminAviones();
-                // MenuManager menuManager = new MenuManager(serviceFlightRepository);
-                // menuManager.showMenu();
                 break;
             case "tripulacion":
                 System.out.println("ESTAMOS ENTRANDO A MENU DE TRIPULACION\n");
                 menuFinal.menuAdminTripulacion();
                 break;
-
             case "viaje":
                 System.out.println("ESTAMOS ENTRANDO A MENU DE TRAYECTOS\n");
                 menuFinal.menuAdminTrayectos();
-               
                 break;
             case "aeropuerto":
                 System.out.println("ESTAMOS ENTRANDO A MENU DE AEROPUERTO\n");
@@ -157,7 +174,8 @@ public class GenerarPermisos {
                 menuUserCliente.menuUserVuelo();
                 break;
             case "reserva":
-            menuUserCliente.menuUserReserva();
+                menuUserCliente.menuUserReserva();
+                break;
             default:
                 break;
         }

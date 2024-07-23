@@ -141,7 +141,7 @@ public class UserController {
         }
     }
 
-    public void ValidationAccount() {
+    public void ValidationAccount() throws Exception {
         // try {
             while (true) {
                 System.out.println("\n==============================");

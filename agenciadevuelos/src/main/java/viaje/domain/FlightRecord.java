@@ -6,37 +6,41 @@ import java.sql.Time;
 public class FlightRecord {
     private int id;
     private String originAirport;
-    private String destinationAirport;
     private String originCity;
+    private String destinationAirport;
     private String destinationCity;
     private double price;
     private Date travelDate;
     private Time hora;
+    private int idAvion; // Nuevo campo para idAvion
 
-    // Constructor vacío
+    
+    // Getters y setters para todos los campos, incluyendo idAvion
+
     public FlightRecord() {
-        this.originAirport = "";
-        this.destinationAirport = "";
-        this.originCity = "";
-        this.destinationCity = "";
-        this.price = 0.0;
-        this.travelDate = new Date(System.currentTimeMillis());
-        this.hora = new Time(System.currentTimeMillis());
     }
 
-    // Constructor completo para inicializar todos los campos
-    public FlightRecord(String originAirport, String destinationAirport, String originCity,
-                        String destinationCity, double price, Date travelDate, Time hora) {
+    public FlightRecord(String originAirport, String originCity, String destinationAirport,
+            String destinationCity, double price, Date travelDate, Time hora, int idAvion) {
+
         this.originAirport = originAirport;
-        this.destinationAirport = destinationAirport;
         this.originCity = originCity;
+        this.destinationAirport = destinationAirport;
         this.destinationCity = destinationCity;
         this.price = price;
         this.travelDate = travelDate;
         this.hora = hora;
+        this.idAvion = idAvion;
     }
 
-    // Getters y setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getOriginAirport() {
         return originAirport;
     }
@@ -45,20 +49,20 @@ public class FlightRecord {
         this.originAirport = originAirport;
     }
 
-    public String getDestinationAirport() {
-        return destinationAirport;
-    }
-
-    public void setDestinationAirport(String destinationAirport) {
-        this.destinationAirport = destinationAirport;
-    }
-
     public String getOriginCity() {
         return originCity;
     }
 
     public void setOriginCity(String originCity) {
         this.originCity = originCity;
+    }
+
+    public String getDestinationAirport() {
+        return destinationAirport;
+    }
+
+    public void setDestinationAirport(String destinationAirport) {
+        this.destinationAirport = destinationAirport;
     }
 
     public String getDestinationCity() {
@@ -93,11 +97,18 @@ public class FlightRecord {
         this.hora = hora;
     }
 
-    public int getId() {
-        return id;
+    public int getIdAvion() {
+        return idAvion;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdAvion(int idAvion) {
+        this.idAvion = idAvion;
+    }
+
+
+    @Override
+    public String toString() {
+        return String.format("ID: %d, Origen: %s (%s), Destino: %s (%s), Precio: %.2f COP, Fecha: %s, Hora: %s",
+                id, originAirport, originCity, destinationAirport, destinationCity, price, travelDate, hora,idAvion);
     }
 }

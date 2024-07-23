@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.agenciadevuelosglobales.Menu.GenerarPermisos;
-import com.agenciadevuelosglobales.Menu.MenuManager;
 
 import trip.application.GetAllTrip;
 import trip.domain.ServiceTrip;
 import trip.domain.Trip;
 import trip.infrastructure.out.TripRepository;
 import viaje.application.GuardarVuelo;
-import viaje.domain.ServiceFlightRepository;
+import viaje.domain.ServiceFlight;
 import viaje.infrastructure.in.ViajeController;
 import viaje.infrastructure.out.FlightRepositoryImpl;
 
@@ -19,7 +18,7 @@ public class MenuUserCliente {
     Scanner scanner = new Scanner(System.in);
     GenerarPermisos menuPermisos = new GenerarPermisos();
     private ServiceTrip serviceTrip;
-    ServiceFlightRepository serviceFlightRepository = new FlightRepositoryImpl();
+    ServiceFlight serviceFlightRepository = new FlightRepositoryImpl();
     GuardarVuelo flightService = new GuardarVuelo(serviceFlightRepository);
     FlightRepositoryImpl flightRepository = new FlightRepositoryImpl();
     ViajeController viajeController = new ViajeController(flightRepository);
@@ -48,7 +47,11 @@ public class MenuUserCliente {
                     menuPermisos.getAllPermiso(reserva, rolId, idUsu);
                     break;
                 case 3:
-                    mostrarInformacionDeViajesPaginado();
+                System.out.println("---------------------------------------------------");
+                System.out.println("RECUERDA VER EL ID DE TU VIAJE PARA VER INFORMACION");
+                System.out.println("---------------------------------------------------");
+                    viajeController.buscarVueloPorId();
+                    
                     break;
                 case 4:
                     System.out.println("Saliendo..");

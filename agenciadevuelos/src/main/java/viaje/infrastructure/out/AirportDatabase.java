@@ -12,7 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class  AirportDatabase implements ServiceAeropuerto {
+import Escala.domain.Escala;
+import Escala.domain.ServiceEscala;
+
+public class AirportDatabase implements ServiceAeropuerto,ServiceEscala {
     private static final String FILE_PATH = "agenciadevuelos/src/main/java/airports.csv";
     private Map<String, List<Viaje>> cityToAirportMap = new HashMap<>();
     private List<Viaje> allAirports = new ArrayList<>();
@@ -32,23 +35,33 @@ public class  AirportDatabase implements ServiceAeropuerto {
                         String city = columns[10].trim().toLowerCase();
                         String iataCode = columns[1].trim();
                         String aeropuerto = columns[3].trim();
-                        double latitude = Double.parseDouble(columns[4].trim());
-                        double longitude = Double.parseDouble(columns[5].trim());
+                        double latitude = parseDouble(columns[4].trim());
+                        double longitude = parseDouble(columns[5].trim());
                         String type = columns[2].trim().toLowerCase();
 
                         if (city.isEmpty() || iataCode.isEmpty() || !(type.contains("large") || type.contains("medium"))) {
                             continue;
                         }
 
-                        Viaje airport = new Viaje(iataCode, type, city, latitude, longitude, aeropuerto);
+                        Viaje airport = new Viaje(iataCode, type, aeropuerto, latitude, longitude, city);
                         allAirports.add(airport);
                         cityToAirportMap.computeIfAbsent(city, k -> new ArrayList<>()).add(airport);
                     } catch (NumberFormatException e) {
-                        // Ignorar líneas con datos inválidos
+                        
                     }
+                } else {
+                    // Manejar el caso donde los datos no tienen el formato esperado
+                    System.err.println("Línea con formato incorrecto: " + line);
                 }
             }
         }
+    }
+
+    private double parseDouble(String value) throws NumberFormatException {
+        if (value == null || value.isEmpty()) {
+            throw new NumberFormatException("El valor es nulo o vacío");
+        }
+        return Double.parseDouble(value);
     }
 
     public List<Viaje> findAirportsByCoordinates(double lat, double lon, double tolerance) {
@@ -60,5 +73,17 @@ public class  AirportDatabase implements ServiceAeropuerto {
             }
         }
         return nearbyAirports;
+    }
+
+    @Override
+    public void guardarEscala(Escala layover) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'guardarEscala'");
+    }
+
+    @Override
+    public ArrayList<Escala> GetAllEscalas() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'GetAllEscalas'");
     }
 }

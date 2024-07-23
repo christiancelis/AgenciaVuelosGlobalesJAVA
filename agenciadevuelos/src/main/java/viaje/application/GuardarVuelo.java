@@ -1,14 +1,14 @@
 package viaje.application;
 
 import viaje.domain.FlightRecord;
-import viaje.domain.ServiceFlightRepository;
+import viaje.domain.ServiceFlight;
 import java.sql.SQLException;
 
 public class GuardarVuelo {
 
-    private final ServiceFlightRepository serviceFlightRepository;
+    private final ServiceFlight serviceFlightRepository;
 
-    public GuardarVuelo(ServiceFlightRepository flightRepository) {
+    public GuardarVuelo(ServiceFlight flightRepository) {
         this.serviceFlightRepository = flightRepository;
     }
 

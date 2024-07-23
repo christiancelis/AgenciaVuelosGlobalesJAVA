@@ -1,11 +1,11 @@
 package viaje.application;
 
-import viaje.domain.ServiceFlightRepository;
+import viaje.domain.ServiceFlight;
 
 public class EliminarVueloById {
-    private final ServiceFlightRepository serviceFlightRepository;
+    private final ServiceFlight serviceFlightRepository;
 
-    public EliminarVueloById(ServiceFlightRepository serviceFlightRepository) {
+    public EliminarVueloById(ServiceFlight serviceFlightRepository) {
         this.serviceFlightRepository = serviceFlightRepository;
     }
 

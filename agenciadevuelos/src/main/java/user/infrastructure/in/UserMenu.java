@@ -14,7 +14,7 @@ import user.infrastructure.out.UserRepository;
 
 public class UserMenu {
 
-    public void MenuUser() {
+    public void MenuUser() throws Exception {
         ServiceUser serviceUser = new UserRepository();
         
         ServiceRol serviceRol = new RolRepository();
