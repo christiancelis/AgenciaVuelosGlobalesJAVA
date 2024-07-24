@@ -132,9 +132,9 @@ CREATE TABLE Escala (
 -- Creación de la tabla Tripulante
 CREATE TABLE Tripulante (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    Escala_id INT,
+    Viaje_Id INT,
     Empleado_id INT,
-    FOREIGN KEY (Escala_id) REFERENCES Escala(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (Viaje_id) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (Empleado_id) REFERENCES Empleado(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
