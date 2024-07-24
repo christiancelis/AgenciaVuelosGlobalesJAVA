@@ -10,4 +10,5 @@ public interface ServiceTrayecto {
     void guardarTrayecto(Trayecto trayecto);
     ArrayList<Trayecto>GetAllTrayecto();
      void actualizarTrayecto(Trayecto trayecto) throws SQLException;
+     void insertVuelos(int idVuelo,int idTrayecto);
 }

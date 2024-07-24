@@ -54,8 +54,8 @@ public class TrayectoController {
                 }
 
                 // Listar todos los vuelos y obtener el ID del viaje
-                MutableInteger idViaje = new MutableInteger();
-                listarVuelosYObtenerID(idViaje);
+               /*  MutableInteger idViaje = new MutableInteger();
+                listarVuelosYObtenerID(idViaje);*/
 
                 Geocoding.LocationDetails originDetails = Geocoding.getLocationDetails(origin);
                 Geocoding.LocationDetails destinationDetails = Geocoding.getLocationDetails(destination);
@@ -81,7 +81,7 @@ public class TrayectoController {
                 Trayecto trayecto = new Trayecto();
                 trayecto.setOriginCity(originCity);
                 trayecto.setDestinoCity(destinationCity);
-                trayecto.setIdViaje(idViaje.getValue());
+                // trayecto.setIdViaje(idViaje.getValue());
 
                 trayectoList.add(trayecto);
 
@@ -89,6 +89,7 @@ public class TrayectoController {
                     serviceTrayecto.guardarTrayecto(trayecto);
                     System.out.println("\n[Éxito] Trayecto creado exitosamente.\n");
                     exitoso = true;
+                    
                 } catch (Exception e) {
                     System.out.println("\n[Error] Error al guardar el registro del trayecto en la base de datos: " + e.getMessage() + "\n");
                 }
@@ -115,7 +116,7 @@ public class TrayectoController {
         }
     }
 
-    private void listarVuelosYObtenerID(MutableInteger idViaje) {
+  /*  private void listarVuelosYObtenerID(MutableInteger idViaje) {
         ArrayList<FlightRecord> vuelos = listVuelos.execute();
         if (vuelos.isEmpty()) {
             System.out.println("\n[Error] No hay vuelos disponibles.\n");
@@ -173,7 +174,7 @@ public class TrayectoController {
         }
     }
 
-
+*/
 
     
 

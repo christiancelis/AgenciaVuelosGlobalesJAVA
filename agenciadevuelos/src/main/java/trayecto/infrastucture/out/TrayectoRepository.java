@@ -39,14 +39,14 @@ public class TrayectoRepository implements ServiceTrayecto {
     }
 
     public void guardarTrayecto(Trayecto trayecto) {
-        String sql = "INSERT INTO Trayecto (originCity, destinationCity, idViaje) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Trayecto (originCity, destinationCity) VALUES (?, ?)";
         
         try (Connection connection = DataBaseConfig.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, trayecto.getOriginCity());
             statement.setString(2, trayecto.getDestinoCity());
-            statement.setInt(3, trayecto.getIdViaje());
+           // statement.setInt(3, trayecto.getIdViaje());
 
             int affectedRows = statement.executeUpdate();
             
@@ -64,8 +64,17 @@ public class TrayectoRepository implements ServiceTrayecto {
         }
     }
 
+
+    
+
     @Override
     public void actualizarTrayecto(Trayecto trayecto) throws SQLException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void insertVuelos(int idVuelo, int idTrayecto) {
         // TODO Auto-generated method stub
         
     }

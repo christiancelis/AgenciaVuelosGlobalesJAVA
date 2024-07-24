@@ -117,12 +117,11 @@ CREATE TABLE Viaje (
 );
 
 -- Creación de la tabla Escala
-CREATE TABLE Escala (
+CREATE TABLE Trayecto (
     id INT AUTO_INCREMENT PRIMARY KEY,
     aeropuertoDestino INT,
     aeropuertoOrigen INT,
     Avion_id INT,
-    Viaje_id INT,
     FOREIGN KEY (Avion_id) REFERENCES Avion(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (Viaje_id) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (aeropuertoOrigen) REFERENCES Aeropuerto(id) ON DELETE SET NULL ON UPDATE CASCADE,

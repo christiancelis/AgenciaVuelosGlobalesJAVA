@@ -1,19 +1,10 @@
 package com.agenciadevuelosglobales;
-
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Scanner;
-
-import com.agenciadevuelosglobales.Menu.MenuManager;
-
 import trayecto.domain.ServiceTrayecto;
 import trayecto.infrastucture.in.TrayectoController;
 import trayecto.infrastucture.out.TrayectoRepository;
-import utils.AirportDatabase;
 import viaje.application.ListVuelos;
-import viaje.domain.FlightRecord;
 import viaje.domain.ServiceFlight;
-import viaje.infrastructure.in.ViajeController;
 import viaje.infrastructure.out.FlightRepositoryImpl;
 
 public class Main {

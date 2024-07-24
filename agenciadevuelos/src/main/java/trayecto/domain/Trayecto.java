@@ -4,17 +4,17 @@ public class Trayecto  {
     private int id;
     private String originCity;
     private String destinoCity;
-    private int idViaje;
+   
 
 
     
     public Trayecto() {
     }
-    public Trayecto(int id, String originCity, String destinoCity, int idViaje) {
+    public Trayecto(int id, String originCity, String destinoCity) {
         this.id = id;
         this.originCity = originCity;
         this.destinoCity = destinoCity;
-        this.idViaje = idViaje;
+     
     }
     public int getId() {
         return id;
@@ -35,16 +35,11 @@ public class Trayecto  {
         this.destinoCity = destinoCity;
     }
   
-    public int getIdViaje() {
-        return idViaje;
-    }
-    public void setIdViaje(int idViaje) {
-        this.idViaje = idViaje;
-    }
+  
    
     @Override
     public String toString() {
-        return "Trayecto [originCity=" + originCity + ", destinoCity=" + destinoCity + ", idViaje=" + idViaje + "]";
+        return "Trayecto [originCity=" + originCity + ", destinoCity=" + destinoCity + "]";
     }
 
    
