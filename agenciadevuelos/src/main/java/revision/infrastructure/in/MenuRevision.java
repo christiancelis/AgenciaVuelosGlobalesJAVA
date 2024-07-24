@@ -40,7 +40,7 @@ public class MenuRevision {
         RevisionController revisionController = new RevisionController(createRevision, updateRevision, deleteRevision, getAllRevision, getRevisionById, getAllPlanes, getAllEmployees);
         
         while (true) {
-            imprimirMenu();
+            
             int opcion = utils.Validation.leerNumero("Digite una opcion: ", scanner);
             switch (opcion) {
                 case 1:
@@ -57,6 +57,7 @@ public class MenuRevision {
                     System.out.println("Opcion no valida");
                     break;
             }
+            imprimirMenu();
         }
        
     }

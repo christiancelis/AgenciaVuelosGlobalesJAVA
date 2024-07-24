@@ -46,7 +46,7 @@ public class AirCrewMenu {
           
 
             while (true) {
-                imprimirMenu();
+                // imprimirMenu();
                 int Opcion = utils.Validation.leerNumero("Digite una opcion", scanner);
                 switch (Opcion) {
                     case 1:
@@ -62,6 +62,7 @@ public class AirCrewMenu {
                         System.out.println("Opcion no valida");
                         break;
                 }
+                imprimirMenu();
             }
         }
 

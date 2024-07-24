@@ -1,7 +1,6 @@
-drop database railway;
-create DATABASE IF not EXISTS railway;
-USE railway;
+create database railway;
 
+use railway;
 -- Creación de la tabla Fabricante
 CREATE TABLE Fabricante (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -80,7 +79,7 @@ CREATE TABLE Salida (
 CREATE TABLE Empleado (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(45),
-    fechaIngreso INT,
+    fechaIngreso varchar(45),
     Rol_id INT,
     Aerolinea_id INT,
     FOREIGN KEY (Rol_id) REFERENCES Rol(id) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -106,7 +105,7 @@ CREATE TABLE Revision_Empleado (
 );
 
 -- Creación de la tabla Viaje
-CREATE TABLE Viaje (
+/*CREATE TABLE Viaje (
     id INT AUTO_INCREMENT PRIMARY KEY,
     aeropuertoOrigen INT,
     aeropuertoDestino INT,
@@ -115,26 +114,42 @@ CREATE TABLE Viaje (
     FOREIGN KEY (aeropuertoOrigen) REFERENCES Aeropuerto(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (aeropuertoDestino) REFERENCES Aeropuerto(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
-
--- Creación de la tabla Escala
-CREATE TABLE Escala (
+*/
+CREATE TABLE Viaje (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    aeropuertoDestino INT,
-    aeropuertoOrigen INT,
-    Avion_id INT,
-    Viaje_id INT,
-    FOREIGN KEY (Avion_id) REFERENCES Avion(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (Viaje_id) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (aeropuertoOrigen) REFERENCES Aeropuerto(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (aeropuertoDestino) REFERENCES Aeropuerto(id) ON DELETE SET NULL ON UPDATE CASCADE
+    originAirport VARCHAR(255), 
+    originCity VARCHAR(255),-- Asegúrate de que el tamaño sea suficiente para el nombre del aeropuerto
+    destinationAirport VARCHAR(255),
+    destinationCity VARCHAR(255),-- Asegúrate de que el tamaño sea suficiente para el nombre del aeropuerto
+    precio DECIMAL(10, 2) NOT NULL,
+    fechaViaje DATE,
+    hora TIME,
+    idAvion int,
+    foreign key(idAvion)references Avion(id)ON DELETE SET NULL ON UPDATE CASCADE
+);
+CREATE TABLE Trayecto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    originCity VARCHAR(255),
+    destinationCity VARCHAR(255),
+    idViaje INT,
+    FOREIGN KEY (idViaje) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
--- Creación de la tabla Tripulante
-CREATE TABLE Tripulante (
+CREATE TABLE ViajeEscala (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    Escala_id INT,
+    idViaje INT,
+    idEscala INT,
+    FOREIGN KEY (idViaje) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (idEscala) REFERENCES Trayecto(id) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+
+-- Creación de la tabla Tripulante
+CREATE TABLE Tripulacion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_viaje INT,
     Empleado_id INT,
-    FOREIGN KEY (Escala_id) REFERENCES Escala(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (id_viaje) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (Empleado_id) REFERENCES Empleado(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
@@ -198,15 +213,6 @@ CREATE TABLE Asiento (
     FOREIGN KEY (idClase) REFERENCES Clase(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
--- Creación de la tabla ReservaAsiento
-CREATE TABLE ReservaAsiento (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    idAsiento INT,
-    idReserva INT,
-    FOREIGN KEY (idAsiento) REFERENCES Asiento(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (idReserva) REFERENCES ReservaViaje(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
 -- Creación de la tabla AutenticacionRol
 CREATE TABLE Usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -229,66 +235,9 @@ primary key(idRol,idPermiso),
 foreign key(idRol)references Rol(id),
 foreign key(idPermiso)references Permiso(id)
 );
-
+/*
 create view VistaPaisAero
 as select p.id as idPais,p.nombre as pais,c.id as idCiudad,c.nombre as ciudad from Pais as p
 join Ciudad as c on c.Pais_id = p.id;
-
-
-CREATE TABLE Viaje (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    originAirport VARCHAR(255), 
-    originCity VARCHAR(255),-- Asegúrate de que el tamaño sea suficiente para el nombre del aeropuerto
-    destinationAirport VARCHAR(255),
-    destinationCity VARCHAR(255),-- Asegúrate de que el tamaño sea suficiente para el nombre del aeropuerto
-    precio DECIMAL(10, 2) NOT NULL,
-    fechaViaje DATE,
-    hora TIME
-    idAvion int,
-    foreign key(idAvion)references Avion(id)
-);
-CREATE TABLE Trayecto (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    originCity VARCHAR(255),
-    destinationCity VARCHAR(255),
-    idViaje INT,
-    FOREIGN KEY (idAvion) REFERENCES Avion(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (idViaje) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-CREATE TABLE ViajeEscala (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    idViaje INT,
-    idEscala INT,
-    FOREIGN KEY (idViaje) REFERENCES Viaje(id),
-    FOREIGN KEY (idEscala) REFERENCES Escala(id)
-);
-
-
-
-CREATE TABLE Tripulante (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    Escala_id INT,
-    Empleado_id INT,
-    FOREIGN KEY (Escala_id) REFERENCES Escala(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (Empleado_id) REFERENCES Empleado(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
-CREATE TABLE ReservaViaje (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    fecha DATE,
-    Viaje_id INT,
-    detalleReserva_id INT,
-    FOREIGN KEY (Viaje_id) REFERENCES Viaje(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (detalleReserva_id) REFERENCES detalleReserva(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
-CREATE TABLE ReservaAsiento (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    idAsiento INT,
-    idReserva INT,
-    FOREIGN KEY (idAsiento) REFERENCES Asiento(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (idReserva) REFERENCES ReservaViaje(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
-show tables;
+*/
 

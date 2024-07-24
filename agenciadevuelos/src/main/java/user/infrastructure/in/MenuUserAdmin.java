@@ -3,6 +3,7 @@ package user.infrastructure.in;
 import java.util.Scanner;
 import com.agenciadevuelosglobales.Menu.GenerarPermisos;
 
+import airCrew.infrastructure.in.AirCrewMenu;
 import documentType.application.UseCaseCreateDocumentType;
 import documentType.application.UseCaseDeleteDocumentTypeById;
 import documentType.application.UseCaseGetAllDocumentTypes;
@@ -10,6 +11,7 @@ import documentType.application.UseCaseGetDocumentTypeById;
 import documentType.application.UseCaseUpdateDocumentType;
 import documentType.domain.ServiceDocumentType;
 import documentType.infrastructure.in.DocumentController;
+import documentType.infrastructure.in.MenuDocument;
 import documentType.infrastructure.out.DocumentTypeRepository;
 import plane.application.CreatePlane;
 import plane.application.DeletePlaneByPlate;
@@ -54,12 +56,11 @@ public class MenuUserAdmin {
     GetModelById getModelById = new GetModelById(serviceModel);
     GetStatusById getStatusById = new GetStatusById(sServiceStatus);
     PlaneController planeController = new PlaneController(deletePlaneByPlate, getAllPlanes,
-            updatePlaneByPlate, getAllStatus, createPlane, getAllModels, getPlaneByPlate, getModelById, getStatusById);
+    updatePlaneByPlate, getAllStatus, createPlane, getAllModels, getPlaneByPlate, getModelById, getStatusById);
     ServiceFlight serviceFlight = new FlightRepositoryImpl();
     ServiceTarifa serviceTarifa = new TarifaRepository();
     ViajeController viajeController = new ViajeController(serviceFlight, serviceTarifa);
     ServiceDocumentType serviceDocumentType = new DocumentTypeRepository();
-
     UseCaseGetAllDocumentTypes getAllDocumentTypes = new UseCaseGetAllDocumentTypes(serviceDocumentType);
     UseCaseGetDocumentTypeById getDocumentTypeById = new UseCaseGetDocumentTypeById(serviceDocumentType);
     UseCaseCreateDocumentType createDocumentType = new UseCaseCreateDocumentType(serviceDocumentType);
@@ -74,7 +75,8 @@ public class MenuUserAdmin {
         ListVuelos listVuelos = new ListVuelos(serviceFlight);
         insertVueloTrayecto insertVueloTrayecto = new insertVueloTrayecto(serviceTrayecto);
       TrayectoController trayectoController = new TrayectoController(serviceTrayecto, scanner, listVuelos,insertVueloTrayecto)  ;
-
+    AirCrewMenu airCrewMenu = new AirCrewMenu();
+    MenuDocument menuDocument = new MenuDocument();
     public void Start(int rolId, int idUsu) throws Exception {
         while (true) {
             System.out.println("==============================");
@@ -83,8 +85,8 @@ public class MenuUserAdmin {
             System.out.println("1. Gestionar Aviones");
             System.out.println("2. Gestionar Tripulaciones");
             System.out.println("3. Gestionar Trayectos");
-            System.out.println("4. Gestionar Aeropuertos");
-            System.out.println("5. Gestionar Tarifas de viajes");
+            System.out.println("4. Gestionar Aeropuertos*");
+            System.out.println("5. Gestionar Tarifas de viajes*");
             System.out.println("6. Gestionar documentación");
             System.out.println("7. Gestionar usuarios y permisos");
             System.out.println("8. Salir");
@@ -178,25 +180,9 @@ public class MenuUserAdmin {
     }
 
     public void menuAdminTripulacion() {
-        while (true) {
+       
 
-            int choice = utils.Validation.leerNumero("Digite la opción: ", scanner);
-
-            switch (choice) {
-                case 1:
-                    System.out.println("Asignando Tripulación...");
-                    break;
-                case 2:
-                    System.out.println("Consultando Asignación de Tripulación...");
-                    break;
-                case 3:
-                    System.out.println("Saliendo del menú de Tripulación.");
-                    return;
-                default:
-                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
-                    break;
-            }
-        }
+           airCrewMenu.start();
     }
 
     public void menuAdminTrayectos() throws Exception {
@@ -319,34 +305,6 @@ public class MenuUserAdmin {
     }
 
     public void menuAdminDocumentacion() {
-        while (true) {
-
-            int choice = utils.Validation.leerNumero("Digite la opción: ", scanner);
-
-            switch (choice) {
-                case 1:
-                    System.out.println("Registrando Tipo de Documento...");
-                    documentController.createDocumentType();
-                    break;
-                case 2:
-                    System.out.println("Actualizando Tipo de Documento...");
-                    documentController.UpdateDocumentType();
-                    break;
-                case 3:
-                    System.out.println("Eliminando Tipo de Documento...");
-                    documentController.deleteDocumentType();
-                    break;
-                case 4:
-                    System.out.println("Consultando Tipo de Documento...");
-                    documentController.getInfoDocumentType();
-                    break;
-                case 5:
-                    System.out.println("Saliendo del menú de Documentación.");
-                    return;
-                default:
-                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
-                    break;
-            }
-        }
+        menuDocument.start();
     }
 }

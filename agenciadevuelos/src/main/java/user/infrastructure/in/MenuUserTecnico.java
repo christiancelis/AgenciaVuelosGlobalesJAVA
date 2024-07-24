@@ -28,6 +28,7 @@ import revision.application.UseCaseGetAllRevision;
 import revision.application.UseCaseGetRevisionById;
 import revision.application.UseCaseUpdateRevision;
 import revision.domain.ServiceRevision;
+import revision.infrastructure.in.MenuRevision;
 import revision.infrastructure.in.RevisionController;
 import revision.infrastructure.out.RevisionRepository;
 
@@ -52,6 +53,7 @@ public class MenuUserTecnico {
     UseCaseGetAllRevision getAllRevision = new UseCaseGetAllRevision(serviceRevision);
     UseCaseGetRevisionById getRevisionById = new UseCaseGetRevisionById(serviceRevision);
     UseCaseGetAllEmployees getAllEmployees = new UseCaseGetAllEmployees(serviceEmployee);
+    MenuRevision menuRevision = new MenuRevision();
     // controladores
 
     GetAllPlanes getAllPlanes = new GetAllPlanes(servicePlane);
@@ -124,30 +126,6 @@ public class MenuUserTecnico {
     }
 
     public void menuTecMantenimiento() {
-        while (true) {
-
-            int choice = utils.Validation.leerNumero("Digite la opción: ", scanner);
-
-            switch (choice) {
-                case 1:
-                    System.out.println("Registrando nueva revisión...");
-                    revisionController.CrearRevision();
-                    break;
-                case 2:
-                    System.out.println("Actualizando información de revisión...");
-                    revisionController.updateRevision();
-                    break;
-                case 3:
-                    System.out.println("Eliminando revisión de mantenimiento...");
-                    revisionController.deleteRevision();
-                    break;
-                case 4:
-                    System.out.println("Saliendo del menú de mantenimiento.");
-                    return;
-                default:
-                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
-                    break;
-            }
-        }
+        menuRevision.start();
     }
 }
