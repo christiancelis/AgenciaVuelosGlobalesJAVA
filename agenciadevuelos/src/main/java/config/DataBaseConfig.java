@@ -8,13 +8,13 @@ import java.sql.SQLException;
 public class DataBaseConfig {
     
 
-    static {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    // static {
+    //     try {
+    //         Class.forName("com.mysql.cj.jdbc.Driver");
+    //     } catch (ClassNotFoundException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     public static Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://roundhouse.proxy.rlwy.net:23964/railway";

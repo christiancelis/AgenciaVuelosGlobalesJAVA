@@ -77,16 +77,16 @@ public class RevisionController {
         if(revision==null){return;}
 
         imprimirMenuRevision();
-        int opcion = Validation.leerNumero("Digite una opcion", scanner);
+        int opcion = Validation.leerNumero("Digite una opcion: ", scanner);
         switch (opcion) {
             case 1:
                 System.out.println("Valor Actual: " + revision.getFechaRevision());
-                revision.setFechaRevision(Validation.LeerFecha("Digite el nuevo valor", scanner));
+                revision.setFechaRevision(Validation.LeerFecha("Digite el nuevo valor: ", scanner));
                 break;
             case 2:
                 imprimirAviones();
                 System.out.println("Id Actual: " + revision.getIdAvion());
-                int idAvion = Validation.leerNumero("Digite el id del avion", scanner);
+                int idAvion = Validation.leerNumero("Digite el id del avion: ", scanner);
                 Boolean existeAvion = validarExistenciaAvion(idAvion);
                 if(existeAvion==false){System.out.println("El avion con el id digitado no existe");return;}
                 revision.setIdAvion(idAvion);
@@ -94,14 +94,14 @@ public class RevisionController {
             case 3:
                 imprimirEmpleados();
                 System.out.println("Id Actual: " + revision.getIdEmpleado());
-                int idEmpleado = Validation.leerNumero("Digite el id del Empleado", scanner);
+                int idEmpleado = Validation.leerNumero("Digite el id del Empleado: ", scanner);
                 Boolean existeEmpleado = validarExistenciaEmpleado(idEmpleado);
                 if(existeEmpleado==false){System.out.println("El Empleado con el id digitado no existe");return;}
                 revision.setIdEmpleado(idEmpleado);
                 break;
             case 4:
                 System.out.println("Valor Actual: " + revision.getDescripcion());
-                revision.setDescripcion(Validation.leerdato("Digite el nuevo valor", scanner));
+                revision.setDescripcion(Validation.leerdato("Digite el nuevo valor: ", scanner));
                 break;
             default:
                 System.out.println("Opcion no valida");

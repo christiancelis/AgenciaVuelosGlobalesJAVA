@@ -1,9 +1,5 @@
 package revision.infrastructure.in;
-
 import java.util.Scanner;
-
-import com.mysql.cj.xdevapi.Schema.Validation;
-
 import employee.application.UseCaseGetAllEmployees;
 import employee.domain.ServiceEmployee;
 import employee.infrastructure.out.EmployeeRepository;
@@ -22,12 +18,10 @@ public class MenuRevision {
 
 
     public void start(){
+        Scanner scanner = new Scanner(System.in);
         ServiceRevision serviceRevision = new RevisionRepository();
         ServicePlane servicePlane = new PlaneRepository();
         ServiceEmployee serviceEmployee = new EmployeeRepository();
-
-        Scanner scanner = new Scanner(System.in);
-        
         UseCaseCreateRevision  createRevision = new UseCaseCreateRevision(serviceRevision);
         UseCaseUpdateRevision updateRevision = new UseCaseUpdateRevision(serviceRevision);
         UseCaseDeleteRevision deleteRevision = new UseCaseDeleteRevision(serviceRevision);

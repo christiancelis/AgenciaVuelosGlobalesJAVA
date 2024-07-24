@@ -1,8 +1,5 @@
 package cliente.domain;
-
 import java.util.ArrayList;
-
-import documentType.domain.Documento;
 
 public interface ServiceClient {
     Client getClientByDocument(String document);

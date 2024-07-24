@@ -1,9 +1,5 @@
- package documentType.infrastructure.in;
-
+package documentType.infrastructure.in;
 import java.util.Scanner;
-
-import com.mysql.cj.xdevapi.Schema.Validation;
-
 import documentType.application.UseCaseCreateDocumentType;
 import documentType.application.UseCaseDeleteDocumentTypeById;
 import documentType.application.UseCaseGetAllDocumentTypes;
@@ -11,7 +7,6 @@ import documentType.application.UseCaseGetDocumentTypeById;
 import documentType.application.UseCaseUpdateDocumentType;
 import documentType.domain.ServiceDocumentType;
 import documentType.infrastructure.out.DocumentTypeRepository;
-import user.infrastructure.in.MenuUserAdmin;
 
 public class MenuDocument {
     public void start(){

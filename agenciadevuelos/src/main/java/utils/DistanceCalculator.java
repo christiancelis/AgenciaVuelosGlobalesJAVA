@@ -2,7 +2,7 @@ package utils;
 
 public class DistanceCalculator {
 
-    private static final double EARTH_RADIUS = 6371; // Radius of the earth in kilometers
+    private static final double EARTH_RADIUS = 6371; 
 
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         double dLat = Math.toRadians(lat2 - lat1);

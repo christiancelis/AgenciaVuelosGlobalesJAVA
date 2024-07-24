@@ -1,9 +1,6 @@
 package airCrew.infrastructure.in;
 
 import java.util.Scanner;
-
-import com.mysql.cj.xdevapi.Schema.Validation;
-
 import airCrew.application.UseCaseAddCrewToTrip;
 import airCrew.application.UseCaseGetAirCrewToTrip;
 import airCrew.application.UseCaseGetIdAirlineOfTrip;
@@ -24,13 +21,11 @@ import viaje.infrastructure.out.FlightRepositoryImpl;
 
 public class AirCrewMenu {
         public void start(){
+            Scanner scanner = new Scanner(System.in);
             ServiceAirCrew serviceAirCrew = new AirCrewRepository();
             ServiceFlight serviceFlight = new FlightRepositoryImpl();
             ServiceEmployee serviceEmployee = new EmployeeRepository();
             ServiceAirline serviceAirline = new AirlineRepository();
-
-            Scanner scanner = new Scanner(System.in);
-
             UseCaseAddCrewToTrip addCrewToTrip = new UseCaseAddCrewToTrip(serviceAirCrew);
             UseCaseGetIdAirlineOfTrip getIdAirlineOfTrip = new UseCaseGetIdAirlineOfTrip(serviceAirCrew);
             UseCaseGetAirCrewToTrip getAirCrewToTrip = new UseCaseGetAirCrewToTrip(serviceAirCrew);
@@ -47,7 +42,7 @@ public class AirCrewMenu {
 
             while (true) {
                 // imprimirMenu();
-                int Opcion = utils.Validation.leerNumero("Digite una opcion", scanner);
+                int Opcion = utils.Validation.leerNumero("Digite una opcion: ", scanner);
                 switch (Opcion) {
                     case 1:
                         airCrewController.AsignarTripulacionViaje();

@@ -42,7 +42,7 @@ import viaje.infrastructure.out.FlightRepositoryImpl;
 
 public class MenuUserAdmin {
     private Scanner scanner = new Scanner(System.in);
-
+//
     ServiceStatus sServiceStatus = new StatusRepository();
     GetAllStatus getAllStatus = new GetAllStatus(sServiceStatus);
     ServiceModel serviceModel = new ModelRepository();
@@ -55,8 +55,7 @@ public class MenuUserAdmin {
     GetPlaneByPlate getPlaneByPlate = new GetPlaneByPlate(servicePlane);
     GetModelById getModelById = new GetModelById(serviceModel);
     GetStatusById getStatusById = new GetStatusById(sServiceStatus);
-    PlaneController planeController = new PlaneController(deletePlaneByPlate, getAllPlanes,
-    updatePlaneByPlate, getAllStatus, createPlane, getAllModels, getPlaneByPlate, getModelById, getStatusById);
+    //
     ServiceFlight serviceFlight = new FlightRepositoryImpl();
     ServiceTarifa serviceTarifa = new TarifaRepository();
     ViajeController viajeController = new ViajeController(serviceFlight, serviceTarifa);
@@ -66,15 +65,17 @@ public class MenuUserAdmin {
     UseCaseCreateDocumentType createDocumentType = new UseCaseCreateDocumentType(serviceDocumentType);
     UseCaseUpdateDocumentType updateDocumentType = new UseCaseUpdateDocumentType(serviceDocumentType);
     UseCaseDeleteDocumentTypeById deleteDocumentTypeById = new UseCaseDeleteDocumentTypeById(serviceDocumentType);
-
-    DocumentController documentController = new DocumentController(getAllDocumentTypes, getDocumentTypeById,
-            createDocumentType, updateDocumentType, deleteDocumentTypeById);
     GenerarPermisos menuPermisos = new GenerarPermisos();
     ServiceTrayecto serviceTrayecto = new TrayectoRepository();
-      
-        ListVuelos listVuelos = new ListVuelos(serviceFlight);
-        insertVueloTrayecto insertVueloTrayecto = new insertVueloTrayecto(serviceTrayecto);
-      TrayectoController trayectoController = new TrayectoController(serviceTrayecto, scanner, listVuelos,insertVueloTrayecto)  ;
+    DocumentController documentController = new DocumentController(getAllDocumentTypes, getDocumentTypeById,
+    createDocumentType, updateDocumentType, deleteDocumentTypeById);
+    PlaneController planeController = new PlaneController(deletePlaneByPlate, getAllPlanes,
+    updatePlaneByPlate, getAllStatus, createPlane, getAllModels, getPlaneByPlate, getModelById, getStatusById);
+ 
+      //
+    ListVuelos listVuelos = new ListVuelos(serviceFlight);
+    insertVueloTrayecto insertVueloTrayecto = new insertVueloTrayecto(serviceTrayecto);
+    TrayectoController trayectoController = new TrayectoController(serviceTrayecto, scanner, listVuelos,insertVueloTrayecto)  ;
     AirCrewMenu airCrewMenu = new AirCrewMenu();
     MenuDocument menuDocument = new MenuDocument();
     public void Start(int rolId, int idUsu) throws Exception {
@@ -85,7 +86,7 @@ public class MenuUserAdmin {
             System.out.println("1. Gestionar Aviones");
             System.out.println("2. Gestionar Tripulaciones");
             System.out.println("3. Gestionar Trayectos");
-            System.out.println("4. Gestionar Aeropuertos*");
+            System.out.println("4. Gestionar Aeropuertos**");
             System.out.println("5. Gestionar Tarifas de viajes*");
             System.out.println("6. Gestionar documentación");
             System.out.println("7. Gestionar usuarios y permisos");

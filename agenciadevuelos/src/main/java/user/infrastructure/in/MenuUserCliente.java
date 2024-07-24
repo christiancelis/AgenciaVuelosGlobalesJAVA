@@ -1,8 +1,5 @@
 package user.infrastructure.in;
-
-import java.util.ArrayList;
 import java.util.Scanner;
-
 import com.agenciadevuelosglobales.Menu.GenerarPermisos;
 import viaje.application.GuardarVuelo;
 import viaje.domain.ServiceFlight;

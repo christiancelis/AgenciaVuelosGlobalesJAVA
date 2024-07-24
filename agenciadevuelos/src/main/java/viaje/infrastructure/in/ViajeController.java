@@ -24,7 +24,6 @@ import plane.application.GetAllPlanes;
 import plane.domain.Plane;
 import plane.domain.ServicePlane;
 import plane.infrastructure.out.PlaneRepository;
-import tarifa.application.ListTarifa;
 import tarifa.domain.ServiceTarifa;
 import tarifa.domain.Tarifa;
 import tarifa.infrastructure.in.TarifaController;
