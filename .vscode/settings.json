@@ -1,0 +1,8 @@
+{
+<<<<<<< HEAD
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.dependency.packagePresentation": "hierarchical"
+=======
+    "java.configuration.updateBuildConfiguration": "interactive"
+>>>>>>> origin/CamiloUltimate
+}
