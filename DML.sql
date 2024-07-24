@@ -103,6 +103,10 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (1, 27, "viaje"), -- Consultar Escalas de un Trayecto
 (1, 28, "viaje"), -- Actualizar Información de Escala
 (1, 29, "viaje"), -- Eliminar Escala
+(1,46,"viaje"),-- Registrar vuelo
+(1,47,"viaje"),-- registrar trayecto
+(1,48,"viaje"),
+(1,49,"viaje"),
 (1, 30, "tarifa"), -- Registrar Tarifa de Vuelo
 (1, 31, "tarifa"), -- Actualizar Información de Tarifa de Vuelo
 (1, 32, "tarifa"), -- Eliminar Tarifa de Vuelo
@@ -139,6 +143,7 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (4, 43, "reserva"), -- Consultar Reserva de Vuelo
 (4, 44, "reserva"), -- Cancelar Reserva de Vuelo
 (4, 45, "reserva"); -- Modificar Reserva de Vuelo
+
 
  INSERT INTO Aerolinea (nombre)
 VALUES 	('Copa Airlines'),
