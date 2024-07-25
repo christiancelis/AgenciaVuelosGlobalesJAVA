@@ -17,12 +17,11 @@ public class DataBaseConfig {
     }
 
     public static Connection getConnection() throws SQLException {
-        // String url = "jdbc:mysql://roundhouse.proxy.rlwy.net:23964/railway";
-        // String user = "root"; 
-        // String password = "SGdeJOTGDpxhZvVLlnRQTNrhNGuzzRLv"; 
-        String url = "jdbc:mysql://localhost:3306/prueba2";
+        String url = "jdbc:mysql://roundhouse.proxy.rlwy.net:23964/railway";
         String user = "root"; 
-        String password = "Titiancelis1"; 
+        String password = "SGdeJOTGDpxhZvVLlnRQTNrhNGuzzRLv"; 
+       // String url = "jdbc:mysql://localhost:3306/prueba2";
+    
         return DriverManager.getConnection(url, user, password);
     }
 }
