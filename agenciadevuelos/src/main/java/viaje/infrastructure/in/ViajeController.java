@@ -185,23 +185,29 @@ public class ViajeController {
                         try {
                             flightRepository.GuardarViaje(flightRecord);
                             printInfoMessage("Registro de vuelo guardado con éxito: " + flightRecord);
+                            return;
                             // Salir del bucle después de calcular el precio
                             
                         } catch (SQLException e) {
                             printErrorMessage("Error al guardar el registro del vuelo en la base de datos: " + e.getMessage());
+                            return;
                         }
                     } else {
                         printErrorMessage("ID del avión no válido. Por favor, intente nuevamente.");
+                        return;
                     }
                 } catch (IOException e) {
                     printErrorMessage("Error al obtener los detalles de ubicación: " + e.getMessage());
+                    return;
                 } catch (Exception e) {
                     printErrorMessage("Error al calcular la distancia: " + e.getMessage());
+                    return;
                 }
             }
         } finally {
             System.out.println("XD"); // Asegúrate de cerrar el Scanner al final
         }
+
     }
     
 
