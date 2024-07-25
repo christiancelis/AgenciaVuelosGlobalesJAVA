@@ -1,6 +1,7 @@
-create database railway;
+drop database if exists prueba2;
+create database if not exists prueba2;
+use prueba2;
 
-use railway;
 -- Creación de la tabla Fabricante
 CREATE TABLE Fabricante (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,7 +36,7 @@ CREATE TABLE Avion (
 
 -- Creación de la tabla Rol
 CREATE TABLE Rol (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id int auto_increment primary key,
     nombre VARCHAR(45)
 );
 
@@ -173,7 +174,7 @@ CREATE TABLE Tarifa (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descripcion VARCHAR(45),
     detalle VARCHAR(45),
-    valor double(15,3)
+    valor DECIMAL(15,3)
 );
 
 -- Creación de la tabla detalleReserva
@@ -228,16 +229,10 @@ nombre varchar(100)
 );
 
 create table RolPermiso(
+idRolPermiso int primary key auto_increment,
 idRol int,
 idPermiso int,
 validacion varchar(50),
-primary key(idRol,idPermiso),
-foreign key(idRol)references Rol(id),
-foreign key(idPermiso)references Permiso(id)
+foreign key(idRol)references Rol(id) ON DELETE SET NULL ON UPDATE CASCADE,
+foreign key(idPermiso)references Permiso(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
-/*
-create view VistaPaisAero
-as select p.id as idPais,p.nombre as pais,c.id as idCiudad,c.nombre as ciudad from Pais as p
-join Ciudad as c on c.Pais_id = p.id;
-*/
-

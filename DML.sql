@@ -81,7 +81,11 @@ INSERT INTO Permiso (id, nombre) VALUES
 (42, "Realizar Pago"),
 (43, "Consultar Reserva de Vuelo"),
 (44, "Cancelar Reserva de Vuelo"),
-(45, "Modificar Reserva de Vuelo");
+(45, "Modificar Reserva de Vuelo"),
+(46, "Registrar Vuelo"),
+(47, "Registrar Trayecto"),
+(48, "Validar Vuelo"),
+(49, "Control de Vuelo");
 
 -- Relacionando permisos para el rol ADMINISTRADOR
 INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
@@ -115,8 +119,6 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (1, 35, "documentacion"), -- Actualizar Tipo de Documento
 (1, 36, "documentacion"), -- Eliminar Tipo de Documento
 (1, 37, "documentacion"), -- Consultar Tipo de Documento
-
--- Relacionando permisos para el rol VENTAS
 (2, 5, "cliente"),  -- Consultar Información de Cliente
 (2, 7, "cliente"),  -- Registrar Cliente
 (2, 13, "cliente"), -- Actualizar Información de Cliente
@@ -125,16 +127,12 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (2, 6, "reserva"),  -- Consultar Reserva de Vuelo
 (2, 14, "reserva"), -- Eliminar Reserva de Vuelo
 (2, 23, "viaje"), -- Consultar Información de Vuelo
-
--- Relacionando permisos para el rol TECNICO
 (3, 8, "avion"),  -- Consultar Información de Avión
 (3, 12, "avion"), -- Consultar Historial de Revisiones de Avión
 (3, 15, "avion"), -- Actualizar Información de Avión
 (3, 4, "mantenimiento"),  -- Registrar Revisión de Mantenimiento
 (3, 24, "mantenimiento"), -- Actualizar Información de Revisión
 (3, 25, "mantenimiento"), -- Eliminar Revisión de Mantenimiento
-
--- Relacionando permisos para el rol CLIENTE
 (4, 38, "viaje"), -- Buscar Vuelos
 (4, 39, "viaje"), -- Seleccionar Vuelo
 (4, 40, "viaje"), -- Añadir Pasajeros
@@ -142,7 +140,7 @@ INSERT INTO RolPermiso (idRol, idPermiso, validacion) VALUES
 (4, 42, "viaje"), -- Realizar Pago
 (4, 43, "reserva"), -- Consultar Reserva de Vuelo
 (4, 44, "reserva"), -- Cancelar Reserva de Vuelo
-(4, 45, "reserva"); -- Modificar Reserva de Vuelo
+(4, 45, "reserva"); 
 
 
  INSERT INTO Aerolinea (nombre)
@@ -159,7 +157,6 @@ VALUES 	('Copa Airlines'),
        ('Cathay Pacific');
        
 
-select * from Aerolinea;
 INSERT INTO Empleado (nombre, fechaIngreso, Aerolinea_id)
 VALUES 
     ('Juan Pérez', '2023-01-15', 1),   -- Copa Airlines
@@ -277,11 +274,6 @@ END$$
 DELIMITER ;
 
 call ActualizarRevision(1, '2024-02-12',2,4,'Revision de Alerones');
-use railway;
-
-
-
-
 
 -- Inserciones para la tabla Modelo
 INSERT INTO Modelo ( nombre, Fabricante_id) VALUES ( '747', 1); -- Boeing 747
@@ -302,4 +294,15 @@ insert into Documento(nombre) values("cedula");
 
 insert into Avion(matricula,capacidad,fechaFabricacion,Modelo_id,Estado_id)
 values("ass",69,"2023-06-05",2,4);
+
+INSERT INTO Tarifa (descripcion, detalle, valor) VALUES 
+('Tarifa Standard', 'Tarifa básica para vuelos nacionales', 0.1), 
+('Tarifa Premium', 'Tarifa para vuelos nacionales', 0.2), 
+('Tarifa Internacional', 'Tarifa para vuelos internacionales', 0.3), 
+('Tarifa Ejecutiva', 'Tarifa para vuelos de clase ejecutiva', 0.4), 
+('Tarifa Primera Clase', 'Tarifa para primera clase internacional', 0.5), 
+('Tarifa Reducida', 'Tarifa para estudiantes', 0.05), 
+('Tarifa Familia', 'Tarifa para familias con 3+ miembros', 0.1), 
+('Tarifa Corporativa', 'Tarifa para empresas con contrato', 0.2), 
+('Tarifa Fin de Semana', 'Tarifa para fines de semana', 0.4);
 
