@@ -306,3 +306,19 @@ INSERT INTO Tarifa (descripcion, detalle, valor) VALUES
 ('Tarifa Corporativa', 'Tarifa para empresas con contrato', 0.2), 
 ('Tarifa Fin de Semana', 'Tarifa para fines de semana', 0.4);
 
+DELIMITER $$
+
+CREATE PROCEDURE InsertVueloTrayecto(
+    IN idVuelo INT,
+    IN idTrayecto INT
+)
+BEGIN
+    INSERT INTO ViajeEscala (idViaje, idEscala)
+    VALUES (idVuelo, idTrayecto);
+END$$
+
+DELIMITER ;
+
+select * from Viaje;
+insert into Viaje(originAirport,originCity,destinationAirport,destinationCity,precio,fechaViaje,hora,idAvion)
+values("Palonegro Airport","El Dorado International Airport","Bucaramanga","Bogotá, Distrito Capital",231898.03,2022-06-06,06:30:00,1);
